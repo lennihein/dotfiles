@@ -44,24 +44,24 @@ cursor_shape = block
 
 [colors]
 
-foreground=#D8DEE9
-background=#2E3440
-cursor=#D8DEE9
+foreground=#f8f8f2
+background=#282a36
+cursor=
 
-color0=#3B4252
-color1=#BF616A
-color2=#A3BE8C
-color3=#EBCB8B
-color4=#81A1C1
-color5=#B48EAD
-color6=#88C0D0
-color7=#E5E9F0
+color0=#21222c
+color1=#ff5555
+color2=#50fa7b
+color3=#f1fa8c
+color4=#bd93f9
+color5=#ff79c6
+color6=#8be9fd
+color7=#f8f8f2
 
-color8=#4C566A
-color9=#BF616A
-color10=#A3BE8C
-color11=#EBCB8B
-color12=#81A1C1
-color13=#B48EAD
-color14=#8FBCBB
-color15=#ECEFF4
+color8=#6272a4
+color9=#ff6e6e
+color10=#69ff94
+color11=#ffffa5
+color12=#d6acff
+color13=#ff92df
+color14=#a4ffff
+color15=#ffffff
