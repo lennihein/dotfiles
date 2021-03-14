@@ -1,0 +1,4 @@
+# Defined in - @ line 1
+function gitlog --wraps='nu -c "git log --pretty=%h»¦«%aN»¦«%s»¦«%aD | lines | split column »¦« sha1 committer desc merged_at | first 10"' --wraps='nu -c "git log --pretty=%h»¦«%aN»¦«%s»¦«%aD | lines | split column »¦« sha1 committer desc merged_at | first 15"' --wraps='nu -c "git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n 25 | lines | split column »¦« commit subject name email date | update date { get date | str to-datetime} | sort-by date | reverse | first 15 | table -n 1"' --description 'alias gitlog nu -c "git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n 25 | lines | split column »¦« commit subject name email date | update date { get date | str to-datetime} | sort-by date | reverse | first 15 | table -n 1"'
+  nu -c "git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n 25 | lines | split column »¦« commit subject name email date | update date { get date | str to-datetime} | sort-by date | reverse | first 15 | table -n 1" $argv;
+end
