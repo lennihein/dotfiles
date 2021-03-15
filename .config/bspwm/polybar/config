@@ -28,7 +28,7 @@ bottom = false
 fixed-center = true
 
 width = 100%
-height = 20
+height = 15
 offset-x = 0
 offset-y = 0
 
@@ -48,11 +48,11 @@ padding = 0
 module-margin-left = 2
 module-margin-right = 2
 
-font-0 = "Google-Sans:size=14;3"
-font-1 = "FantasqueSansMono Nerd Font:size=14;3"
+font-0 = "Google-Sans:size=11;3"
+font-1 = "FantasqueSansMono Nerd Font:size=11;3"
 modules-left = mod bspwm
 modules-center =  
-modules-right = volume backlight battery network date
+modules-right = volume battery network date
 
 separator =
 spacing = 0
@@ -178,7 +178,7 @@ type = internal/battery
 
 full-at = 99
 
-battery = BAT0
+battery = BAT1
 adapter = ACAD
 
 poll-interval = 2

@@ -2,4 +2,4 @@
 #include ".Xresources.d/fonts"
 #include ".Xresources.d/rxvt-unicode"
 
-Xft.dpi: 120
+Xft.dpi: 90
