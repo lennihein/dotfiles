@@ -45,13 +45,13 @@ border-size = 4
 border-color = ${color.BACKGROUND}
 
 padding = 0
-module-margin-left = 2
-module-margin-right = 2
+module-margin-left = 1
+module-margin-right = 1
 
-font-0 = "Google-Sans:size=14;3"
-font-1 = "FantasqueSansMono Nerd Font:size=14;3"
+font-0 = "Google-Sans:size=14;4"
+font-1 = "FantasqueSansMono Nerd Font:size=14;4"
 modules-left = mod bspwm
-modules-center =  
+modules-center = 
 modules-right = volume backlight battery network date
 
 separator =
@@ -62,14 +62,14 @@ dim-value = 1.0
 wm-name = bspwm
 locale = 
 
-tray-position = right
+tray-position = right 
 tray-detached = false
 tray-maxsize = 16
-tray-transparent = false
+tray-transparent = true
 tray-background = ${color.BACKGROUND}
 tray-offset-x = 0
 tray-offset-y = 0
-tray-padding = 0
+tray-padding = 8
 tray-scale = 1.0
 
 wm-restack = bspwm
