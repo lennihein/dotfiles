@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-# launch termite with other config
-if [ "$1" == "-f" ]; then
-	kitty --class kitty-float #-c ~/.config/bspwm/termite/config
-else
-	kitty #-c ~/.config/bspwm/termite/config
-fi
