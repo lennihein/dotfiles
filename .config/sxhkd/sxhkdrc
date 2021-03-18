@@ -25,6 +25,11 @@ super + {w,m,x,r}
 ctrl + alt + {s,n,t}
 	sh ~/.config/bspwm/rofi/bin/{screenshot,network,themes}
 
+##---------- Programs ----------##
+
+super + g
+    ghidra
+
 ##---------- System ----------##
 
 # Brighness control
