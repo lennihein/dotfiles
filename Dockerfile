@@ -15,20 +15,21 @@ RUN useradd -g wheel -m -s /usr/sbin/fish lenni\
 USER lenni
 WORKDIR /home/lenni
 
-# set nightly toolchain for rust
+# set nightly as default toolchain for rust
 RUN rustup default nightly
 
 # install paru (and change AUR-order to descending)
 RUN git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si --noconfirm && cd ../ && rm paru -rf
-USER root
-RUN sudo echo "BottomUp" >> /etc/paru.conf
-USER lenni
+RUN sudo sh -c 'echo BottomUp >> /etc/paru.conf'
 
 # install nushell
 RUN paru -S nushell-bin gotop-bin --noconfirm
 
 # copy config dotfiles
 COPY --chown=lenni:lenni .config/ /home/lenni/.config/
+
+# set pwndbg as default gdb frontend
+RUN echo "source /usr/share/pwndbg/gdbinit.py" > /home/lenni/.gdbinit
 
 # launnch fish as shell
 CMD fish
