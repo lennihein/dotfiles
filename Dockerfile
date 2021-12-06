@@ -6,7 +6,7 @@ RUN pacman -Syyu --noconfirm --needed\
     fish cmake gcc make neofetch net-tools nmap opendoas gdb pwndbg\
     python-pwntools traceroute valgrind git rustup thefuck libx11\
     fzf ranger vim starship ropgadget clang htop openvpn openssh\
-    wget unzip bat pkg-config
+    wget unzip bat pkg-config nushell
 
 # add user lenni with sudo and doas permits
 RUN useradd -g wheel -m -s /usr/sbin/fish lenni\
@@ -22,8 +22,8 @@ RUN rustup default nightly
 RUN git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si --noconfirm && cd ../ && rm paru -rf
 RUN sudo sh -c 'echo BottomUp >> /etc/paru.conf'
 
-# install nushell
-RUN paru -S nushell-bin gotop-bin --noconfirm
+# install gotop
+RUN paru -S gotop-bin --noconfirm
 
 # copy config dotfiles
 COPY --chown=lenni:lenni .config/ /home/lenni/.config/
