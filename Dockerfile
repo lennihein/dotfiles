@@ -15,9 +15,6 @@ RUN useradd -g wheel -m -s /usr/sbin/fish lenni\
 USER lenni
 WORKDIR /home/lenni
 
-# # set nightly as default toolchain for rust
-# RUN rustup default nightly
-
 # install paru (and change AUR-order to descending)
 RUN git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && makepkg -si --noconfirm && cd ../ && rm paru-bin -rf
 RUN sudo sh -c 'echo BottomUp >> /etc/paru.conf'
@@ -31,5 +28,5 @@ COPY --chown=lenni:wheel .config/ /home/lenni/.config/
 # set pwndbg as default gdb frontend
 RUN echo "source /usr/share/pwndbg/gdbinit.py" > /home/lenni/.gdbinit
 
-# launnch fish as shell
+# launch fish as shell
 CMD fish
