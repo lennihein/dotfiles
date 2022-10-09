@@ -22,10 +22,6 @@ WORKDIR /home/lenni
 RUN git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && makepkg -si --noconfirm && cd ../ && rm paru-bin -rf
 RUN sudo sh -c 'echo BottomUp >> /etc/paru.conf'
 
-# install gotop
-RUN paru -S gotop-bin --noconfirm
-RUN rm .cache/ -rf
-
 # copy config dotfiles
 COPY --chown=lenni:wheel .config/ /home/lenni/.config/
 
