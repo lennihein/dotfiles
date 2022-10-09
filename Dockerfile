@@ -1,8 +1,11 @@
 # I use Arch, btw
 FROM archlinux/archlinux:base-devel
 
+# update
+RUN pacman -Syyu --noconfirm
+
 # installing some packages
-RUN pacman -Syyu --noconfirm --needed\
+RUN pacman -S --noconfirm --needed\
     fish cmake gcc make neofetch net-tools nmap opendoas gdb pwndbg\
     python-pwntools traceroute valgrind git rustup thefuck libx11\
     fzf ranger vim starship ropgadget clang htop openvpn openssh\
