@@ -9,7 +9,7 @@ RUN pacman -S --noconfirm --needed\
     fish cmake gcc make neofetch net-tools nmap opendoas gdb pwndbg\
     traceroute valgrind git rustup thefuck libx11\
     fzf ranger vim starship ropgadget clang htop openvpn openssh\
-    wget unzip bat pkg-config nushell ncdu gdu
+    wget unzip bat pkg-config nushell ncdu gdu btop duf
 
 # add user lenni with sudo and doas permits
 RUN useradd -g wheel -m -s /usr/sbin/fish lenni\
