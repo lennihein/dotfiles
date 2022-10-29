@@ -42,7 +42,8 @@ mv dotfiles lenni
 
 # create user
 useradd --home /home/lenni -G wheel -s $(which fish) lenni
-
+# password
+passwd lenni
 # own
 chown -R lenni:lenni lenni/
 
