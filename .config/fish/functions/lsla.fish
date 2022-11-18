@@ -1,4 +1,3 @@
-# Defined in - @ line 1
-function lsla --wraps='nu -c "ls -la"' --description 'alias lsla nu -c "ls -la"'
-  nu -c "ls -la" $argv;
+function lsla --wraps='nu -c "ls -la"' --wraps='exa -la' --description 'alias lsla exa -la'
+  exa -la $argv; 
 end
