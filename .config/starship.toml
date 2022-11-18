@@ -1,7 +1,7 @@
 add_newline = false
 
 #format = """
-#[───────────────────](white)
+#[───────────────────────────────](white)
 #$all
 #"""
 
@@ -56,20 +56,6 @@ format = "[$duration](bold yellow)"
 show_milliseconds = true
 show_notifications = true
 min_time_to_notify = 10000
-
-[git_state]
-format = '[\($state( $progress_current of $progress_total)\)]($style) '
-cherry_pick = "[🍒 PICKING](bold red)"
-conflicted = "🏳"
-ahead = "🏎💨"
-behind = "😰"
-diverged = "😵"
-untracked = "🤷‍"
-stashed = "📦"
-modified = "📝"
-staged = '[++\($count\)](green)'
-renamed = "👅"
-deleted = "🗑"
 
 [python]
 symbol = "py:"
