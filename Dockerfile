@@ -9,7 +9,7 @@ RUN pacman -S --noconfirm --needed\
     fish cmake gcc make neofetch net-tools nmap opendoas gdb pwndbg\
     traceroute valgrind git rustup thefuck libx11\
     fzf ranger vim starship ropgadget clang htop openvpn openssh\
-    wget unzip bat pkg-config nushell ncdu gdu btop duf
+    wget unzip bat pkg-config nushell ncdu gdu btop duf exa
 
 # add user lenni with sudo and doas permits
 RUN useradd -g wheel -m -s /usr/sbin/fish lenni\
@@ -20,7 +20,12 @@ WORKDIR /home/lenni
 
 # install paru (and change AUR-order to descending)
 RUN git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && makepkg -si --noconfirm && cd ../ && rm paru-bin -rf
+
+RUN rustup default stable 
+
 RUN sudo sh -c 'echo BottomUp >> /etc/paru.conf'
+
+RUN paru -S rm-improved
 
 # copy config dotfiles
 COPY --chown=lenni:wheel .config/ /home/lenni/.config/
