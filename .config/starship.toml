@@ -111,5 +111,8 @@ format = 'via [\(py:${pyenv_prefix}(${version}\) )(\($virtualenv\) )]($style)'
 disabled = true
 symbol = "cmake:"
 
+[c]
+disabled = true
+
 [rust]
 symbol = "rust:"
