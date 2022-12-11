@@ -1,17 +1,26 @@
 add_newline = false
 
-#format = """
-#[───────────────────────────────](white)
-#$all
-#"""
+format = """$shlvl$cmd_duration$username$hostname$localip$directory$all$fill$time$container$git_branch$git_state$git_status$git_metrics$git_commit
+$jobs$status$battery$character"""
+# [───────────────────────────────](white)
+# $all
+# """
 
 # Replace the "❯" symbol in the prompt with "❯❯"
 [character]
 success_symbol = "→(bold green)"
 error_symbol = "→(bold red)"
 
+[env_var.DISPLAY]
+variable = "DISPLAY"
+default = ""
+disabled = true
+
+[fill]
+symbol = " "
+
 [line_break]
-disabled = false
+disabled = true
 
 [status]
 symbol = ""
@@ -44,24 +53,66 @@ disabled = false
 
 [hostname]
 ssh_only = true
-format =  "[$hostname](bold red) ❯ "
-
-# Workaround for slow prompt with git status
-[git_status]
-disabled = false
+format =  "[$hostname](bold red) "
 
 [cmd_duration]
 min_time = 1000
-format = "[$duration](bold yellow)"
-show_milliseconds = true
+format = "[$duration](bold yellow) "
+show_milliseconds = false
 show_notifications = true
 min_time_to_notify = 10000
 
+[sudo]
+disabled = true
+style = "blue"
+format = "with [sudo]($style) "
+
+[git_status]
+disabled = false
+style = "bold red"
+format = '([\[](bold dimmed)[$all_status$ahead_behind]($style)[\]](bold dimmed)) '
+
+[git_metrics]
+disabled = false
+format = "([\\[](dimmed bold)[+$added]($added_style) [-$deleted]($deleted_style)[\\]](dimmed bold)) "
+
+[time]
+disabled = false
+format = "[$time]($style) "
+time_format = "%R"
+
+[nix_shell]
+disabled = false
+
+[container]
+style = "bold red"
+format = '[\[$name\]]($style) '
+
+[shlvl]
+disabled = false
+format = "[$shlvl levels down\n]($style)"
+# format = "🐚"
+# repeat = true
+style = "bold red"
+threshold = 2
+
+[localip]
+disabled = false
+format = "[$localipv4]($style) "
+ssh_only = true
+
+[jobs]
+format = "[$symbol]($style) "
+
 [python]
-symbol = "py:"
+format = 'via [\(py:${pyenv_prefix}(${version}\) )(\($virtualenv\) )]($style)'
 
 [cmake]
+disabled = true
 symbol = "cmake:"
+
+[c]
+disabled = true
 
 [rust]
 symbol = "rust:"

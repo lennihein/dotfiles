@@ -8,8 +8,8 @@ RUN pacman -Syyu --noconfirm
 RUN pacman -S --noconfirm --needed\
     fish cmake gcc make neofetch net-tools nmap opendoas gdb pwndbg\
     traceroute valgrind git rustup thefuck libx11\
-    fzf ranger vim starship ropgadget clang htop openvpn openssh\
-    wget unzip bat pkg-config nushell ncdu gdu btop duf exa
+    fzf ranger vim starship clang htop openssh\
+    wget unzip atool bat pkg-config nushell ncdu gdu btop duf exa
 
 # add user lenni with sudo and doas permits
 RUN useradd -g wheel -m -s /usr/sbin/fish lenni\
