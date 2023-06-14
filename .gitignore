@@ -14,6 +14,9 @@
 .python_history
 .Xauthority
 .viminfo
+.nix-defexpr/
+.vim/
+.nix-profile
 
 .config/discord/
 .config/Code/
@@ -30,9 +33,7 @@
 .config/menus/
 .config/pulse/
 .config/fish/fish_variables
-.nix-defexpr/
-.vim/
-.nix-profile
+.config/evolution/
 
 ### USER
 
