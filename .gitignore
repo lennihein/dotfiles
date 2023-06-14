@@ -15,4 +15,24 @@
 .Xauthority
 .viminfo
 
+.config/discord/
+.config/Code/
+.config/autostart/
+.config/dconf/
+.config/enchant/
+.config/GitKraken/
+.config/google-chrome/
+.config/gnome-control-center/
+.config/gnome-initial-setup-done
+.config/user-dirs.dirs 
+.config/user-dirs.locale
+.config/.gsd-keyboard.settings-ported
+.config/menus/
+.config/pulse/
+.config/fish/fish_variables
+
 ### USER
+
+ma/
+
+
