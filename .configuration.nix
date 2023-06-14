@@ -86,7 +86,7 @@
             google-chrome
             neofetch
             ghidra
-	    gitkraken
+	        gitkraken
             python3
             gdu
             pwndbg
@@ -99,10 +99,10 @@
             tldr
             vscode
             discord
-	    wireshark
-	    bat
-	    fzf
-	    # direnv
+	        wireshark
+	        bat
+	        fzf
+	        # direnv
         ];
     };
     
