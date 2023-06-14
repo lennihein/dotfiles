@@ -11,6 +11,9 @@ RUN pacman -S --noconfirm --needed\
     fzf ranger vim starship clang htop openssh\
     wget unzip atool bat pkg-config nushell ncdu gdu btop duf exa
 
+# fix
+RUN chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
+
 # add user lenni with sudo and doas permits
 RUN useradd -g wheel -m -s /usr/sbin/fish lenni\
     && echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers\
