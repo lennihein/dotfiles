@@ -30,9 +30,10 @@
 .config/menus/
 .config/pulse/
 .config/fish/fish_variables
+.nix-defexpr/
+.vim/
+.nix-profile
 
 ### USER
 
 ma/
-
-
