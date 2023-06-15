@@ -109,9 +109,9 @@
     # enable doas
     security.doas.enable = true;
     security.doas.extraRules = [{
-	users = [ "lenni" ];
-	keepEnv = true;
-	noPass = true;  
+	  users = [ "lenni" ];
+	  keepEnv = true;
+	  noPass = true;  
     }];
     
 
@@ -203,7 +203,15 @@
     system.autoUpgrade.enable = true;
     # for unmanaged server enable this:
     system.autoUpgrade.allowReboot = false;
-    
+    # once an hour
+    system.autoUpgrade.dates = "*-*-* *:00:00";
+    # # every day at 4am    
+    # system.autoUpgrade.dates = "*-*-* 4:00:00";
+
+    # garbage collection
+    nix.gc.automatic = true;
+    nix.gc.dates = "weekly";
+    nix.gc.options = "--delete-older-than 14d";
 
     # NixOS version
     system.stateVersion = "23.05";
