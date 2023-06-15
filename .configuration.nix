@@ -20,7 +20,7 @@
     time.hardwareClockInLocalTime = true;
 
     # set hostname
-    networking.hostName = "Thinkpad"; 
+    networking.hostName = "NixOS"; 
 
     # enable networking
     networking.networkmanager.enable = true;
@@ -105,6 +105,7 @@
 	        wireshark
 	        bat
 	        fzf
+	    tldr
 	        # direnv
         ];
     };
@@ -129,14 +130,15 @@
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
-    # # enable nvidia
-    # services.xserver.videoDrivers = [ "nvidia" ];
-    # hardware.opengl.enable = true;
+    # enable nvidia
+    services.xserver.videoDrivers = [ "nvidia" ];
+    hardware.opengl.enable = true;
 
-    # # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-    # # nvidia-drm.modeset=1 is required for some wayland compositors, e.g. sway
+    # nvidia-drm.modeset=1 is required for some wayland compositors, e.g. sway
+    # THIS SEEMS TO BREAK SOME GUIs FOR ME
     # hardware.nvidia.modesetting.enable = true;
 
     environment.systemPackages = with pkgs; [
