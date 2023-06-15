@@ -83,7 +83,7 @@
     users.users.lenni = {
         shell = pkgs.fish;
         isNormalUser = true;
-        description = "Lenni";
+        description = "Lenni Hein";
         extraGroups = [ "networkmanager" "wheel" "wireshark" ];
         packages = with pkgs; [
             google-chrome
