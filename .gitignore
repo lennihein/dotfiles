@@ -17,6 +17,7 @@
 .nix-defexpr/
 .vim/
 .nix-profile
+.compose-cache/
 
 .config/discord/
 .config/Code/

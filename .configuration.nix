@@ -206,10 +206,10 @@
     system.autoUpgrade.enable = true;
     # for unmanaged server enable this:
     system.autoUpgrade.allowReboot = false;
-    # once an hour
-    system.autoUpgrade.dates = "*-*-* *:00:00";
-    # # every day at 4am    
-    # system.autoUpgrade.dates = "*-*-* 4:00:00";
+    # # once an hour
+    # system.autoUpgrade.dates = "*-*-* *:00:00";
+    # every day at 4am    
+    system.autoUpgrade.dates = "*-*-* 4:00:00";
 
     # garbage collection
     nix.gc.automatic = true;
