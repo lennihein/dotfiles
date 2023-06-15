@@ -19,6 +19,7 @@
 .nix-profile
 .compose-cache/
 
+.config/monitors.xml
 .config/discord/
 .config/Code/
 .config/autostart/

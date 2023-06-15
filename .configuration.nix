@@ -3,8 +3,12 @@
 {
     imports =
         [
+            /etc/nixos/device.nix
             /etc/nixos/hardware-configuration.nix
         ];
+
+    # put this into device.nix
+    # networking.hostName = "NixOS";  
 
     # enable flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -18,9 +22,7 @@
 
     # dual boot with Windows
     time.hardwareClockInLocalTime = true;
-
-    # set hostname
-    networking.hostName = "NixOS"; 
+    boot.supportedFilesystems = [ "ntfs" ];
 
     # enable networking
     networking.networkmanager.enable = true;
@@ -89,7 +91,7 @@
             google-chrome
             neofetch
             ghidra
-	        gitkraken
+	    gitkraken
             python3
             gdu
             pwndbg
@@ -102,11 +104,11 @@
             tldr
             vscode
             discord
-	        wireshark
-	        bat
-	        fzf
+	    wireshark
+	    bat
+	    fzf
 	    tldr
-	        # direnv
+	    # direnv
         ];
     };
     
@@ -133,11 +135,7 @@
     # enable nvidia
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.opengl.enable = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-    # nvidia-drm.modeset=1 is required for some wayland compositors, e.g. sway
     # THIS SEEMS TO BREAK SOME GUIs FOR ME
     # hardware.nvidia.modesetting.enable = true;
 
@@ -150,8 +148,6 @@
 
     # disable xterm
     services.xserver.excludePackages = [ pkgs.xterm ];
-    # diable cups
-    services.printing.enable = false;
 
     # disable optional gnome bloat
     environment.gnome.excludePackages = with pkgs.gnome; [
@@ -175,9 +171,6 @@
         pkgs.gnome-tour pkgs.gnome-photos
     ];
 
-    # # something about the system tray, not needed?
-    # services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
-
     # register fish as a shell
     environment.shells = with pkgs; [fish];
 
@@ -193,10 +186,6 @@
         };
     };
 
-    # # Enable the X11 forwarding.
-    # programs.ssh.forwardX11 = true;
-    # programs.ssh.setXAuthLocation = true;
-
     # disable
     networking.firewall = {
         enable = false;
@@ -208,8 +197,6 @@
     system.autoUpgrade.enable = true;
     # for unmanaged server enable this:
     system.autoUpgrade.allowReboot = false;
-    # # once an hour
-    # system.autoUpgrade.dates = "*-*-* *:00:00";
     # every day at 4am    
     system.autoUpgrade.dates = "*-*-* 4:00:00";
 
