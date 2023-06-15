@@ -1,4 +1,7 @@
 ### DEFAULTS
+
+Downloads/
+
 .ssh/
 .pki/
 .local/
@@ -17,6 +20,8 @@
 .nix-defexpr/
 .vim/
 .nix-profile
+.wget-hsts
+.gitignore.swp
 
 .config/discord/
 .config/Code/
@@ -34,6 +39,7 @@
 .config/pulse/
 .config/fish/fish_variables
 .config/evolution/
+.config/monitors.*
 
 ### USER
 

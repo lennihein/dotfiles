@@ -20,7 +20,7 @@
     time.hardwareClockInLocalTime = true;
 
     # set hostname
-    networking.hostName = "Thinkpad"; 
+    networking.hostName = "NixOS"; 
 
     # enable networking
     networking.networkmanager.enable = true;
