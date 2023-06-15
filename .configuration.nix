@@ -6,6 +6,9 @@
             /etc/nixos/hardware-configuration.nix
         ];
 
+    # enable flakes
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
     # Bootloader
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
