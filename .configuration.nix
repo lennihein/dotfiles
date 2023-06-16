@@ -15,7 +15,7 @@
 
     # Bootloader
     # system.nixos.label = "LostNix";
-    system.nixos.tags = ["nvidia"];
+    system.nixos.tags = ["nvidia" "libvirt"];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
     boot.loader.grub.efiSupport = true;
@@ -52,6 +52,9 @@
 	podman.enable = true;
 	podman.dockerCompat = true;
     };
+    
+    # KVM
+    virtualisation.libvirtd.enable = true;
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
@@ -88,7 +91,7 @@
         shell = pkgs.fish;
         isNormalUser = true;
         description = "Lenni Hein";
-        extraGroups = [ "networkmanager" "wheel" "wireshark" ];
+        extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" ];
         packages = with pkgs; [
             google-chrome
             neofetch
@@ -110,6 +113,7 @@
 	    bat
 	    fzf
 	    tldr
+	    virt-manager
 	    # direnv
         ];
     };
