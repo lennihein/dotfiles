@@ -24,6 +24,7 @@ Screenshots/
 .compose-cache/
 
 .config/monitors.xml
+.config/htop/htoprc
 .config/discord/
 .config/Code/
 .config/autostart/
@@ -44,3 +45,5 @@ Screenshots/
 ### USER
 
 ma/
+
+.config/htop/htoprc
