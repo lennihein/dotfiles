@@ -10,13 +10,14 @@
     # put this into device.nix
     # networking.hostName = "NixOS";  
     
-    # Allow unstable packages.
     nixpkgs.config = {
-        # allowUnfree = true;
-	    packageOverrides = pkgs: {
-	        old = import <nixpkgs-old> {
-	            config = config.nixpkgs.config;
-	        };
+        # allow unfree packages
+        allowUnfree = true;
+        # add old nixpkgs
+        packageOverrides = pkgs: {
+            old = import <nixpkgs-old> {
+                config = config.nixpkgs.config;
+            };
         };
     };
 
@@ -59,8 +60,8 @@
 
     # podman
     virtualisation = {
-	podman.enable = true;
-	podman.dockerCompat = true;
+        podman.enable = true;
+        podman.dockerCompat = true;
     };
     
     # KVM
@@ -106,7 +107,7 @@
             google-chrome
             neofetch
             ghidra
-	        gitkraken
+            gitkraken
             python3
             gdu
             pwndbg
@@ -119,13 +120,13 @@
             tldr
             vscode
             discord
-	        wireshark
-	        bat
-	        fzf
-	        tldr
-	        virt-manager
-	        # direnv
-	    old.hyper
+            wireshark
+            bat
+            fzf
+            tldr
+            virt-manager
+            # direnv
+            old.hyper
         ];
     };
 
@@ -137,9 +138,9 @@
     # enable doas
     security.doas.enable = true;
     security.doas.extraRules = [{
-	  users = [ "lenni" ];
-	  keepEnv = true;
-	  noPass = true;  
+        users = [ "lenni" ];
+        keepEnv = true;
+        noPass = true;  
     }];
     
 
@@ -150,9 +151,6 @@
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
-
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
 
     # enable nvidia (breaks some systems)
     services.xserver.videoDrivers = [ "nvidia" ];
