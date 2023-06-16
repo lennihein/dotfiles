@@ -23,8 +23,8 @@ Screenshots/
 .nix-profile
 .compose-cache/
 
-.config/monitors.xml
 .config/htop/htoprc
+.config/monitors.xml
 .config/discord/
 .config/Code/
 .config/autostart/
@@ -45,5 +45,6 @@ Screenshots/
 ### USER
 
 ma/
+ba/
 
-.config/htop/htoprc
+
