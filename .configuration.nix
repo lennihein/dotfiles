@@ -14,6 +14,8 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     # Bootloader
+    # system.nixos.label = "LostNix";
+    system.nixos.tags = ["nvidia"];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
     boot.loader.grub.efiSupport = true;
