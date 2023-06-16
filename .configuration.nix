@@ -9,6 +9,16 @@
 
     # put this into device.nix
     # networking.hostName = "NixOS";  
+    
+    # Allow unstable packages.
+    nixpkgs.config = {
+	# allowUnfree = true;
+	packageOverrides = pkgs: {
+	    old = import <nixpkgs-old> {
+	      config = config.nixpkgs.config;
+	    };
+        };
+    };
 
     # enable flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -96,7 +106,7 @@
             google-chrome
             neofetch
             ghidra
-	    gitkraken
+	        gitkraken
             python3
             gdu
             pwndbg
@@ -109,12 +119,13 @@
             tldr
             vscode
             discord
-	    wireshark
-	    bat
-	    fzf
-	    tldr
-	    virt-manager
-	    # direnv
+	        wireshark
+	        bat
+	        fzf
+	        tldr
+	        virt-manager
+	        # direnv
+	    old.hyper
         ];
     };
     

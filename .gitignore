@@ -22,7 +22,9 @@ Screenshots/
 .vim/
 .nix-profile
 .compose-cache/
+.hyper_plugins/
 
+.config/Hyper/
 .config/htop/htoprc
 .config/monitors.xml
 .config/discord/
