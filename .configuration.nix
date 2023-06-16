@@ -132,7 +132,7 @@
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
-    # enable nvidia
+    # enable nvidia (breaks some systems)
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.opengl.enable = true;
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -185,6 +185,9 @@
             KbdInteractiveAuthentication = false;
         };
     };
+
+    # AdGuard Home
+    services.adguardhome.enable = false;
 
     # disable
     networking.firewall = {
