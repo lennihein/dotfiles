@@ -12,11 +12,11 @@
     
     # Allow unstable packages.
     nixpkgs.config = {
-	# allowUnfree = true;
-	packageOverrides = pkgs: {
-	    old = import <nixpkgs-old> {
-	      config = config.nixpkgs.config;
-	    };
+        # allowUnfree = true;
+	    packageOverrides = pkgs: {
+	        old = import <nixpkgs-old> {
+	            config = config.nixpkgs.config;
+	        };
         };
     };
 
@@ -25,7 +25,7 @@
 
     # Bootloader
     # system.nixos.label = "LostNix";
-    system.nixos.tags = ["nvidia" "libvirt"];
+    system.nixos.tags = [];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
     boot.loader.grub.efiSupport = true;
@@ -128,6 +128,11 @@
 	    old.hyper
         ];
     };
+
+    # nerdfonts
+    fonts.fonts = with pkgs; [
+        (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka"]; })
+    ];
     
     # enable doas
     security.doas.enable = true;

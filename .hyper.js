@@ -2,21 +2,21 @@
 // Future versions of Hyper may add additional config options,
 // which will not automatically be merged into this file.
 // See https://hyper.is#cfg for all currently supported options.
-module.exports = {
+module.exports = { 
     config: {
         // choose either `'stable'` for receiving highly polished,
         // or `'canary'` for less polished but more frequent updates
         updateChannel: 'stable',
         // default font size in pixels for all tabs
-        fontSize: 15,
+        fontSize: 16,
         // font family with optional fallbacks
-        fontFamily: 'Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+        fontFamily: '"Pragmata Pro", "DejaVu Sans Mono"',
         // default font weight: 'normal' or 'bold'
         fontWeight: 'normal',
         // font weight for bold characters: 'normal' or 'bold'
         fontWeightBold: 'bold',
         // line height as a relative unit
-        lineHeight: 1,
+        lineHeight: 1.2,
         // letter spacing as a relative unit
         letterSpacing: 0,
         // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
