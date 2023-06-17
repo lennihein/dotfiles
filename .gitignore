@@ -21,6 +21,7 @@ Screenshots/
 .nix-defexpr/
 .vim/
 .nix-profile
+.nvidia-settings-rc
 .compose-cache/
 .hyper_plugins/
 
@@ -48,5 +49,5 @@ Screenshots/
 
 ma/
 ba/
-
+safeside/
 

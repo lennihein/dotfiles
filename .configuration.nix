@@ -26,9 +26,10 @@
 
     # Bootloader
     # system.nixos.label = "LostNix";
-    system.nixos.tags = [];
+    system.nixos.tags = [""];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.loader.grub.efiSupport = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.useOSProber = true;
