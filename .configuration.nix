@@ -192,10 +192,11 @@
         seahorse    # password manager
 
         # these should be self explanatory
-        gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-contacts
-        gnome-font-viewer gnome-logs gnome-maps gnome-music gnome-screenshot
-        gnome-system-monitor gnome-weather gnome-disk-utility pkgs.gnome-connections
+        gnome-calculator gnome-calendar gnome-characters  gnome-contacts
+        gnome-font-viewer gnome-logs gnome-maps gnome-music
+        gnome-disk-utility gnome-system-monitor pkgs.gnome-connections
         pkgs.gnome-tour pkgs.gnome-photos pkgs.gnome-console
+        # gnome-clocks gnome-screenshot gnome-weather
     ];
 
     # register fish as a shell
