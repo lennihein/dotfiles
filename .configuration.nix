@@ -15,7 +15,10 @@
         allowUnfree = true;
         # add old nixpkgs
         packageOverrides = pkgs: {
-            old = import <nixpkgs-old> {
+            # you can either ref a nix-channel:
+            # old = import <nixpkgs-old> {
+            # or a tarball:
+            old = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-22.11.tar.gz") {
                 config = config.nixpkgs.config;
             };
         };
