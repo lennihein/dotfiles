@@ -126,7 +126,7 @@
             fzf
             tldr
             virt-manager
-            # direnv
+            direnv
             old.hyper
         ];
     };
