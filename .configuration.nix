@@ -166,6 +166,9 @@
         gnomeExtensions.appindicator
         pkgs.gnome3.gnome-tweaks
     ];
+    
+    # disable manual
+    documentation.nixos.enable = false;
 
     # disable xterm
     services.xserver.excludePackages = [ pkgs.xterm ];
@@ -189,7 +192,7 @@
         gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-contacts
         gnome-font-viewer gnome-logs gnome-maps gnome-music gnome-screenshot
         gnome-system-monitor gnome-weather gnome-disk-utility pkgs.gnome-connections
-        pkgs.gnome-tour pkgs.gnome-photos
+        pkgs.gnome-tour pkgs.gnome-photos pkgs.gnome-console
     ];
 
     # register fish as a shell
