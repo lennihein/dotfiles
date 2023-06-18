@@ -25,6 +25,8 @@ Screenshots/
 .compose-cache/
 .hyper_plugins/
 
+.config/gtk-3.0/
+.config/mimeapps.list
 .config/Hyper/
 .config/htop/htoprc
 .config/monitors.xml
