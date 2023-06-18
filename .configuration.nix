@@ -32,10 +32,15 @@
     system.nixos.tags = [];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_6_1;
     boot.loader.grub.efiSupport = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.useOSProber = true;
+
+    boot.extraModprobeConfig = ''
+        options kvm_intel ept=1
+    '';
+    boot.kernelParams = [ "mitigations=off" "nosmt"];
 
     # dual boot with Windows
     time.hardwareClockInLocalTime = true;
@@ -112,7 +117,6 @@
             neofetch
             ghidra
             gitkraken
-            python3
             gdu
             pwndbg
             htop
@@ -131,6 +135,9 @@
             virt-manager
             direnv
             old.hyper
+            util-linux
+            systemd
+            python310
         ];
     };
 
