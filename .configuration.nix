@@ -18,7 +18,7 @@
             # you can either ref a nix-channel:
             # old = import <nixpkgs-old> {
             # or a tarball:
-            old = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-22.11.tar.gz") {
+            lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
                 config = config.nixpkgs.config;
             };
             lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
@@ -133,7 +133,7 @@
             tldr
             virt-manager
             direnv
-            old.hyper
+            lennihein-22-11.hyper
             atool
         ];
     };
