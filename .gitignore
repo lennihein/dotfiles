@@ -25,6 +25,7 @@ Screenshots/
 .compose-cache/
 .hyper_plugins/
 
+.config/nautilus/
 .config/gtk-3.0/
 .config/mimeapps.list
 .config/Hyper/
@@ -52,4 +53,4 @@ Screenshots/
 ma/
 ba/
 safeside/
-
+nixpkgs/

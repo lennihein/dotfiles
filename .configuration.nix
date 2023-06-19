@@ -21,6 +21,9 @@
             old = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-22.11.tar.gz") {
                 config = config.nixpkgs.config;
             };
+            lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
+                config = config.nixpkgs.config;
+            };
         };
     };
 
@@ -111,7 +114,7 @@
             google-chrome
             neofetch
             ghidra
-            gitkraken
+            lennihein.gitkraken
             python3
             gdu
             pwndbg
@@ -131,6 +134,7 @@
             virt-manager
             direnv
             old.hyper
+            atool
         ];
     };
 
