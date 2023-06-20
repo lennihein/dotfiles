@@ -39,6 +39,7 @@
     boot.loader.grub.efiSupport = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.useOSProber = true;
+    boot.plymouth.enable = true;
 
     # dual boot with Windows
     time.hardwareClockInLocalTime = true;
