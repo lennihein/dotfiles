@@ -44,6 +44,11 @@
     time.hardwareClockInLocalTime = true;
     boot.supportedFilesystems = [ "ntfs" ];
 
+    # ignore lid switch when on AC
+    services.logind.extraConfig = ''
+        HandleLidSwitchExternalPower=ignore
+    '';
+
     # enable networking
     networking.networkmanager.enable = true;
 
