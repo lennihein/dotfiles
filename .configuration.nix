@@ -151,21 +151,29 @@
         noPass = true;  
     }];
     
-
     # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = true;
+    services.xserver.displayManager.autoLogin.enable = false;
     services.xserver.displayManager.autoLogin.user = "lenni";
 
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
 
-    # enable nvidia (breaks some systems)
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.opengl.enable = true;
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    # THIS SEEMS TO BREAK SOME GUIs FOR ME
-    # hardware.nvidia.modesetting.enable = true;
+    # Enable nvidia (breaks some systems)
+    # services.xserver.videoDrivers = [ "nvidia" ];
+    # hardware.opengl.enable = true;
+    # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+    
+    # Force Wayland on NVIDIA, but introduces breakage on some electron apps
+    hardware.nvidia.modesetting.enable = true;
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    # Enable wayland 
+    services.xserver.displayManager.gdm.wayland = true;
+    # Enable Fractional Scaling
+    services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+        [org.gnome.mutter]
+        experimental-features=['scale-monitor-framebuffer']
+    '';
 
     environment.systemPackages = with pkgs; [
         vim
