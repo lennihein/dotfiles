@@ -87,6 +87,12 @@
         xkbVariant = "altgr-intl";
     };
 
+    # Flat mouse profile
+    services.xserver.libinput = {
+        enable = true;
+        mouse.accelProfile = "flat";
+    };
+
     # Enable sound with pipewire.
     sound.enable = true;
     hardware.pulseaudio.enable = false;
