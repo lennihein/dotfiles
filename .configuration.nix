@@ -76,8 +76,8 @@
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
-
     # Enable the GNOME Desktop Environment.
+    services.xserver.displayManager.defaultSession = "gnome";
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
 
@@ -152,23 +152,24 @@
     }];
     
     # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = false;
+    services.xserver.displayManager.autoLogin.enable = true;
     services.xserver.displayManager.autoLogin.user = "lenni";
 
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
 
-    # Enable nvidia (breaks some systems)
+    # # Enable nvidia (breaks some systems)
     # services.xserver.videoDrivers = [ "nvidia" ];
     # hardware.opengl.enable = true;
     # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    
-    # Force Wayland on NVIDIA, but introduces breakage on some electron apps
     hardware.nvidia.modesetting.enable = true;
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
-    # Enable wayland 
+    
+    # Disable wayland 
     services.xserver.displayManager.gdm.wayland = true;
+
+    # Hint Ozone to use Wayland
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
     # Enable Fractional Scaling
     services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
         [org.gnome.mutter]
