@@ -81,6 +81,11 @@
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
 
+    # HiDPI support
+    environment.variables = {
+        _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+    };
+
     # Configure keymap in X11
     services.xserver = {
         layout = "us";
