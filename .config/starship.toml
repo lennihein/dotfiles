@@ -89,7 +89,7 @@ style = "bold red"
 format = '[\[$name\]]($style) '
 
 [shlvl]
-disabled = false
+disabled = true
 format = "[$shlvl levels down\n]($style)"
 # format = "🐚"
 # repeat = true
