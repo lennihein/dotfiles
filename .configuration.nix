@@ -152,6 +152,7 @@
             direnv
             lennihein-22-11.hyper
             atool
+            xonsh
         ];
     };
 
