@@ -153,6 +153,9 @@
             lennihein-22-11.hyper
             atool
             xonsh
+            helix
+            ripgrep
+            gitui
         ];
     };
 
