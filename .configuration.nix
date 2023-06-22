@@ -89,7 +89,7 @@
 
     # HiDPI support
     environment.variables = {
-        _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+        _JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
     };
 
     # Configure keymap in X11
