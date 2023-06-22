@@ -26,6 +26,7 @@ Pictures/
 .compose-cache/
 .hyper_plugins/
 
+.config/gitui/
 .config/nautilus/
 .config/gtk-3.0/
 .config/mimeapps.list
@@ -48,6 +49,7 @@ Pictures/
 .config/pulse/
 .config/fish/fish_variables
 .config/evolution/
+.config/rygel.conf
 
 ### USER
 
