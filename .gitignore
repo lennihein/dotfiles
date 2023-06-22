@@ -24,7 +24,19 @@ Screenshots/
 .nvidia-settings-rc
 .compose-cache/
 .hyper_plugins/
+.docker
+.fleet
+.howl
+.rustup
+.cargo
+.vscode-server
+.*history
+.*hsts
+.*hst
 
+.config/JetBrains/
+.config/Thunar
+.config/fastfetch
 .config/nautilus/
 .config/gtk-3.0/
 .config/mimeapps.list
@@ -51,6 +63,12 @@ Screenshots/
 ### USER
 
 ma/
+MA/
 ba/
 safeside/
 nixpkgs/
+stable-diffusion-webui/
+malware/
+genshin/
+dotfiles/
+Shreddit/
