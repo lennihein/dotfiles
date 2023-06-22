@@ -61,9 +61,10 @@ format = "[$duration](bold yellow) "
 show_milliseconds = false
 show_notifications = true
 min_time_to_notify = 10000
+notification_timeout = 10000
 
 [sudo]
-disabled = true
+disabled = false
 style = "blue"
 format = "with [sudo]($style) "
 
@@ -83,13 +84,16 @@ time_format = "%R"
 
 [nix_shell]
 disabled = false
+symbol = '⛄ '
+format = 'via [$symbol$state( \($name\))]($style) '
+
 
 [container]
 style = "bold red"
 format = '[\[$name\]]($style) '
 
 [shlvl]
-disabled = false
+disabled = true
 format = "[$shlvl levels down\n]($style)"
 # format = "🐚"
 # repeat = true
@@ -105,7 +109,9 @@ ssh_only = true
 format = "[$symbol]($style) "
 
 [python]
-format = 'via [\(py:${pyenv_prefix}(${version}\) )(\($virtualenv\) )]($style)'
+# format = 'via [\(py:${pyenv_prefix}(${version}\) )(\($virtualenv\) )]($style)'
+version_format = 'v${major}.${minor}.${patch}'
+format = 'via [py (${version} )(\(${virtualenv}${pyenv_prefix}\) )]($style)'
 
 [cmake]
 disabled = true
@@ -116,3 +122,6 @@ disabled = true
 
 [rust]
 symbol = "rust:"
+
+[os]
+disabled = true
