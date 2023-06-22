@@ -2,6 +2,7 @@
 
 Downloads/
 Screenshots/
+Pictures/
 
 .ssh/
 .pki/
@@ -51,6 +52,7 @@ Screenshots/
 ### USER
 
 ma/
+cctv/
 ba/
 safeside/
 nixpkgs/
