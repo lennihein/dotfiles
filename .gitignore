@@ -3,6 +3,7 @@
 Downloads/
 Screenshots/
 Pictures/
+VirtualBox VMs
 
 .ssh/
 .pki/
@@ -26,6 +27,7 @@ Pictures/
 .compose-cache/
 .hyper_plugins/
 
+.config/VirtualBox
 .config/gitui/
 .config/nautilus/
 .config/gtk-3.0/

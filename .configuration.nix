@@ -32,7 +32,7 @@
 
     # Bootloader
     # system.nixos.label = "LostNix";
-    system.nixos.tags = [];
+    system.nixos.tags = ["vbox"];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
     boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -78,7 +78,12 @@
     };
     
     # KVM
-    virtualisation.libvirtd.enable = true;
+    # virtualisation.libvirtd.enable = true;
+
+    # enable virtualbox
+    virtualisation.virtualbox.host.enable = true;
+    # virtualisation.virtualbox.host.enableExtensionPack = true;
+    users.extraGroups.vboxusers.members = [ "lenni" ];
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
