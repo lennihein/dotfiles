@@ -21,9 +21,9 @@
             lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
                 config = config.nixpkgs.config;
             };
-            lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
-                config = config.nixpkgs.config;
-            };
+            # lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
+            #     config = config.nixpkgs.config;
+            # };
         };
     };
 
@@ -131,7 +131,7 @@
             google-chrome
             neofetch
             ghidra
-            lennihein.gitkraken
+            gitkraken
             python3
             gdu
             pwndbg
@@ -153,6 +153,9 @@
             lennihein-22-11.hyper
             atool
             xonsh
+            helix
+            ripgrep
+            gitui
         ];
     };
 
