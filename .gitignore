@@ -2,6 +2,7 @@
 
 Downloads/
 Screenshots/
+Pictures/
 
 .ssh/
 .pki/
@@ -34,6 +35,7 @@ Screenshots/
 .*hsts
 .*hst
 
+.config/gitui/
 .config/JetBrains/
 .config/Thunar
 .config/fastfetch
@@ -59,10 +61,12 @@ Screenshots/
 .config/pulse/
 .config/fish/fish_variables
 .config/evolution/
+.config/rygel.conf
 
 ### USER
 
 ma/
+cctv/
 MA/
 ba/
 safeside/
