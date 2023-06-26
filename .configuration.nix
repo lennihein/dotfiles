@@ -156,6 +156,7 @@
             helix
             ripgrep
             gitui
+            nvd
         ];
     };
 
