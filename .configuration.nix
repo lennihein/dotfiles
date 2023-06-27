@@ -203,6 +203,15 @@
         vim
         wget
         gnomeExtensions.appindicator
+        gnomeExtensions.no-a11y
+        gnomeExtensions.clipman
+        # gnomeExtensions.pop-shell
+        # gnomeExtensions.docker
+        # gnomeExtensions.sermon
+        gnomeExtensions.vitals
+        gnomeExtensions.rocketbar
+        # gnomeExtensions.glasa
+        gnomeExtensions.arcmenu
         pkgs.gnome3.gnome-tweaks
     ];
     
