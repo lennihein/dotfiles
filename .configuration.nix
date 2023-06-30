@@ -115,11 +115,12 @@
         pulse.enable = true;
     };
 
-    # enable wireshark
+    # enable packages
     programs.wireshark.enable = true;
-
-    # enabled fish
     programs.fish.enable = true;
+    programs.vim.defaultEditor = true;
+    programs.git.enable = true;
+    programs.xonsh.enable = true;
 
     # define user
     users.users.lenni = {
@@ -128,35 +129,14 @@
         description = "Lenni Hein";
         extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" ];
         packages = with pkgs; [
-            google-chrome
-            neofetch
-            ghidra
-            gitkraken
-            python3
-            gdu
-            pwndbg
-            htop
-            ranger
-            git
-            starship
-            rm-improved
-            exa
-            tldr
-            vscode
-            discord
-            wireshark
-            bat
-            fzf
-            tldr
-            virt-manager
-            direnv
-            lennihein-22-11.hyper
-            atool
-            xonsh
-            helix
-            ripgrep
-            gitui
-            nvd
+            # requires config
+            helix starship
+            
+            # dev tools
+            ghidra gitkraken wireshark vscode lennihein-22-11.hyper
+
+            # others
+            google-chrome discord   
         ];
     };
 
@@ -200,19 +180,42 @@
     # '';
 
     environment.systemPackages = with pkgs; [
-        vim
+        # essentials
         wget
+        lsof
+        atool unzip
+        python3 gnumake cmake
+        virt-manager
+        
+        # command line tools 
+        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv
+        
+        # gnome essentials
+        pkgs.gnome3.gnome-tweaks
         gnomeExtensions.appindicator
         gnomeExtensions.no-a11y
         gnomeExtensions.clipman
-        # gnomeExtensions.pop-shell
+        
+        # menu and panel
+        gnomeExtensions.arcmenu
+        gnomeExtensions.dash-to-panel
+
+        # monitoring
+        gnomeExtensions.vitals
         # gnomeExtensions.docker
         # gnomeExtensions.sermon
-        gnomeExtensions.vitals
-        gnomeExtensions.rocketbar
+        
+        # visual candy
+        # gnomeExtensions.blur-my-shell
+        # gnomeExtensions.just-perfection
         # gnomeExtensions.glasa
-        gnomeExtensions.arcmenu
-        pkgs.gnome3.gnome-tweaks
+        
+        # alternative to dash to panel
+        # gnomeExtensions.rocketbar
+        
+        # Dock
+        # gnomeExtensions.dock-from-dash
+        # gnomeExtensions.overview-dash-hide
     ];
     
     # disable manual
@@ -237,11 +240,13 @@
         seahorse    # password manager
 
         # these should be self explanatory
-        gnome-calculator gnome-calendar gnome-characters  gnome-contacts
+        gnome-calculator gnome-calendar gnome-characters gnome-contacts
         gnome-font-viewer gnome-logs gnome-maps gnome-music
         gnome-disk-utility gnome-system-monitor pkgs.gnome-connections
-        pkgs.gnome-tour pkgs.gnome-photos pkgs.gnome-console
-        # gnome-clocks gnome-screenshot gnome-weather
+        pkgs.gnome-tour pkgs.gnome-photos
+
+        # I want these
+        # gnome-clocks gnome-screenshot gnome-weather pkgs.gnome-console
     ];
 
     # register fish as a shell
