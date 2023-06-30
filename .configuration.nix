@@ -71,14 +71,15 @@
         LC_TIME = "de_DE.UTF-8";
     };
 
-    # podman
-    virtualisation = {
-        podman.enable = true;
-        podman.dockerCompat = true;
-    };
-    
-    # KVM
-    virtualisation.libvirtd.enable = true;
+    # Enable nvidia (breaks some systems)
+    services.xserver.videoDrivers = [ "nvidia" ];
+    hardware.opengl.enable = true;
+    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+    hardware.nvidia.powerManagement.enable = true;
+    hardware.nvidia.modesetting.enable = true;
+
+    # Disable wayland 
+    services.xserver.displayManager.gdm.wayland = false;
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
@@ -91,6 +92,23 @@
     environment.variables = {
         _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
     };
+
+    # Enable automatic login for the user.
+    services.xserver.displayManager.autoLogin.enable = true;
+    services.xserver.displayManager.autoLogin.user = "lenni";
+
+    # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+    systemd.services."getty@tty1".enable = false;
+    systemd.services."autovt@tty1".enable = false;
+
+    # podman
+    virtualisation = {
+        podman.enable = true;
+        podman.dockerCompat = true;
+    };
+    
+    # KVM
+    virtualisation.libvirtd.enable = true;
 
     # Configure keymap in X11
     services.xserver = {
@@ -115,12 +133,23 @@
         pulse.enable = true;
     };
 
+    # enable doas
+    security.doas.enable = true;
+    security.doas.extraRules = [{
+        users = [ "lenni" ];
+        keepEnv = true;
+        noPass = true;  
+    }];
+
     # enable packages
     programs.wireshark.enable = true;
     programs.fish.enable = true;
     programs.vim.defaultEditor = true;
     programs.git.enable = true;
     programs.xonsh.enable = true;
+
+    # register fish as a shell
+    environment.shells = with pkgs; [fish];
 
     # define user
     users.users.lenni = {
@@ -139,45 +168,6 @@
             google-chrome discord   
         ];
     };
-
-    # nerdfonts
-    fonts.fonts = with pkgs; [
-        (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka"]; })
-    ];
-    
-    # enable doas
-    security.doas.enable = true;
-    security.doas.extraRules = [{
-        users = [ "lenni" ];
-        keepEnv = true;
-        noPass = true;  
-    }];
-    
-    # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = true;
-    services.xserver.displayManager.autoLogin.user = "lenni";
-
-    # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-    systemd.services."getty@tty1".enable = false;
-    systemd.services."autovt@tty1".enable = false;
-
-    # Enable nvidia (breaks some systems)
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.opengl.enable = true;
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    hardware.nvidia.powerManagement.enable = true;
-    hardware.nvidia.modesetting.enable = true;
-    
-    # Disable wayland 
-    services.xserver.displayManager.gdm.wayland = false;
-
-    # # Hint Ozone to use Wayland
-    # environment.sessionVariables.NIXOS_OZONE_WL = "1";
-    # # Enable Fractional Scaling
-    # services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
-    #     [org.gnome.mutter]
-    #     experimental-features=['scale-monitor-framebuffer']
-    # '';
 
     environment.systemPackages = with pkgs; [
         # essentials
@@ -249,8 +239,10 @@
         # gnome-clocks gnome-screenshot gnome-weather pkgs.gnome-console
     ];
 
-    # register fish as a shell
-    environment.shells = with pkgs; [fish];
+    # nerdfonts
+    fonts.fonts = with pkgs; [
+        (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka"]; })
+    ];
 
     # Enable the OpenSSH daemon.
     services.openssh = {
