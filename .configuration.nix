@@ -71,14 +71,12 @@
         LC_TIME = "de_DE.UTF-8";
     };
 
-    # podman
-    virtualisation = {
-        podman.enable = true;
-        podman.dockerCompat = true;
-    };
-    
-    # KVM
-    virtualisation.libvirtd.enable = true;
+    services.xserver.displayManager.gdm.wayland = true;
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+        [org.gnome.mutter]
+        experimental-features=['scale-monitor-framebuffer']
+    '';
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
@@ -91,6 +89,23 @@
     environment.variables = {
         _JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
     };
+
+    # Enable automatic login for the user.
+    services.xserver.displayManager.autoLogin.enable = true;
+    services.xserver.displayManager.autoLogin.user = "lenni";
+
+    # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+    systemd.services."getty@tty1".enable = false;
+    systemd.services."autovt@tty1".enable = false;
+
+    # podman
+    virtualisation = {
+        podman.enable = true;
+        podman.dockerCompat = true;
+    };
+    
+    # KVM
+    virtualisation.libvirtd.enable = true;
 
     # Configure keymap in X11
     services.xserver = {
@@ -115,11 +130,23 @@
         pulse.enable = true;
     };
 
-    # enable wireshark
-    programs.wireshark.enable = true;
+    # enable doas
+    security.doas.enable = true;
+    security.doas.extraRules = [{
+        users = [ "lenni" ];
+        keepEnv = true;
+        noPass = true;  
+    }];
 
-    # enabled fish
+    # enable packages
+    programs.wireshark.enable = true;
     programs.fish.enable = true;
+    programs.vim.defaultEditor = true;
+    programs.git.enable = true;
+    programs.xonsh.enable = true;
+
+    # register fish as a shell
+    environment.shells = with pkgs; [fish];
 
     # define user
     users.users.lenni = {
@@ -128,91 +155,54 @@
         description = "Lenni Hein";
         extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" ];
         packages = with pkgs; [
-            google-chrome
-            neofetch
-            ghidra
-            gitkraken
-            python3
-            gdu
-            pwndbg
-            htop
-            ranger
-            git
-            starship
-            rm-improved
-            exa
-            tldr
-            vscode
-            discord
-            wireshark
-            bat
-            fzf
-            tldr
-            virt-manager
-            direnv
-            lennihein-22-11.hyper
-            atool
-            xonsh
-            helix
-            ripgrep
-            gitui
-            nvd
+            # requires config
+            helix starship
+            
+            # dev tools
+            ghidra gitkraken wireshark vscode lennihein-22-11.hyper
+
+            # others
+            google-chrome discord   
         ];
     };
 
-    # nerdfonts
-    fonts.fonts = with pkgs; [
-        (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka"]; })
-    ];
-    
-    # enable doas
-    security.doas.enable = true;
-    security.doas.extraRules = [{
-        users = [ "lenni" ];
-        keepEnv = true;
-        noPass = true;  
-    }];
-    
-    # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = true;
-    services.xserver.displayManager.autoLogin.user = "lenni";
-
-    # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-    systemd.services."getty@tty1".enable = false;
-    systemd.services."autovt@tty1".enable = false;
-
-    # # Enable nvidia (breaks some systems)
-    # services.xserver.videoDrivers = [ "nvidia" ];
-    # hardware.opengl.enable = true;
-    # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    # hardware.nvidia.powerManagement.enable = true;
-    hardware.nvidia.modesetting.enable = true;
-    
-    # Disable wayland 
-    services.xserver.displayManager.gdm.wayland = true;
-
-    # Hint Ozone to use Wayland
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
-    # Enable Fractional Scaling
-    services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
-        [org.gnome.mutter]
-        experimental-features=['scale-monitor-framebuffer']
-    '';
-
     environment.systemPackages = with pkgs; [
-        vim
+        # essentials
         wget
+        lsof
+        atool unzip
+        python3 gnumake cmake
+        virt-manager
+        
+        # command line tools 
+        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv
+        
+        # gnome essentials
+        pkgs.gnome3.gnome-tweaks
         gnomeExtensions.appindicator
         gnomeExtensions.no-a11y
         gnomeExtensions.clipman
-        # gnomeExtensions.pop-shell
+        
+        # menu and panel
+        gnomeExtensions.arcmenu
+        gnomeExtensions.dash-to-panel
+
+        # monitoring
+        gnomeExtensions.vitals
         # gnomeExtensions.docker
         # gnomeExtensions.sermon
-        gnomeExtensions.vitals
-        gnomeExtensions.rocketbar
+        
+        # visual candy
+        # gnomeExtensions.blur-my-shell
+        # gnomeExtensions.just-perfection
         # gnomeExtensions.glasa
-        gnomeExtensions.arcmenu
-        pkgs.gnome3.gnome-tweaks
+        
+        # alternative to dash to panel
+        # gnomeExtensions.rocketbar
+        
+        # Dock
+        # gnomeExtensions.dock-from-dash
+        # gnomeExtensions.overview-dash-hide
     ];
     
     # disable manual
@@ -237,15 +227,19 @@
         seahorse    # password manager
 
         # these should be self explanatory
-        gnome-calculator gnome-calendar gnome-characters  gnome-contacts
+        gnome-calculator gnome-calendar gnome-characters gnome-contacts
         gnome-font-viewer gnome-logs gnome-maps gnome-music
         gnome-disk-utility gnome-system-monitor pkgs.gnome-connections
-        pkgs.gnome-tour pkgs.gnome-photos pkgs.gnome-console
-        # gnome-clocks gnome-screenshot gnome-weather
+        pkgs.gnome-tour pkgs.gnome-photos
+
+        # I want these
+        # gnome-clocks gnome-screenshot gnome-weather pkgs.gnome-console
     ];
 
-    # register fish as a shell
-    environment.shells = with pkgs; [fish];
+    # nerdfonts
+    fonts.fonts = with pkgs; [
+        (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka"]; })
+    ];
 
     # Enable the OpenSSH daemon.
     services.openssh = {

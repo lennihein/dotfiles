@@ -25,7 +25,9 @@ Pictures/
 .nvidia-settings-rc
 .compose-cache/
 .hyper_plugins/
+.themes/
 
+.config/btop/
 .config/gitui/
 .config/nautilus/
 .config/gtk-3.0/
@@ -58,4 +60,5 @@ cctv/
 ba/
 safeside/
 nixpkgs/
+transientfail/
 ridl/
