@@ -166,7 +166,7 @@
         wget
         lsof dig
         atool unzip
-        python3 gnumake cmake
+        python3 gnumake cmake clang gcc
         
         # command line tools 
         htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv
