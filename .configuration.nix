@@ -77,6 +77,7 @@
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
     hardware.nvidia.powerManagement.enable = true;
     hardware.nvidia.modesetting.enable = true;
+    hardware.nvidia.forceFullCompositionPipeline = true;
 
     # Disable wayland 
     services.xserver.displayManager.gdm.wayland = false;
@@ -101,13 +102,8 @@
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
 
-    # podman
-    virtualisation = {
-        podman.enable = true;
-        podman.dockerCompat = true;
-    };
-    
-    # KVM
+    # virtualisation
+    virtualisation.podman.enable = true;
     virtualisation.libvirtd.enable = true;
 
     # Configure keymap in X11
@@ -162,7 +158,7 @@
             helix starship
             
             # dev tools
-            ghidra gitkraken wireshark vscode lennihein-22-11.hyper
+            ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager
 
             # others
             google-chrome discord   
@@ -172,10 +168,9 @@
     environment.systemPackages = with pkgs; [
         # essentials
         wget
-        lsof
+        lsof dig
         atool unzip
         python3 gnumake cmake
-        virt-manager
         
         # command line tools 
         htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv
@@ -257,7 +252,7 @@
     };
 
     # AdGuard Home
-    services.adguardhome.enable = false;
+    services.adguardhome.enable = true;
 
     # disable
     networking.firewall = {
