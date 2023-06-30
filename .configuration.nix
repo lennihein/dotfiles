@@ -32,14 +32,19 @@
 
     # Bootloader
     # system.nixos.label = "LostNix";
-    system.nixos.tags = [];
+    system.nixos.tags = ["dis_ucode_ldr" "mitigations_off"];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    # boot.kernelPackages = pkgs.linuxPackages_6_1;
     boot.loader.grub.efiSupport = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.useOSProber = true;
     boot.plymouth.enable = true;
+
+    boot.extraModprobeConfig = ''
+        options kvm_intel ept=1
+    '';
+    boot.kernelParams = [ "mitigations=off" "dis_ucode_ldr"];
 
     # dual boot with Windows
     time.hardwareClockInLocalTime = true;
