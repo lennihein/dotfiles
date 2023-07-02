@@ -173,7 +173,7 @@
         python3 gnumake cmake
         
         # command line tools 
-        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv
+        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv procs
         
         # gnome essentials
         pkgs.gnome3.gnome-tweaks
