@@ -143,6 +143,7 @@
     programs.vim.defaultEditor = true;
     programs.git.enable = true;
     programs.xonsh.enable = true;
+    programs.steam.enable = true;
 
     # register fish as a shell
     environment.shells = with pkgs; [fish];
@@ -173,7 +174,10 @@
         python3 gnumake cmake
         
         # command line tools 
-        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv procs fd
+        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv procs fd duf
+        
+        # bottles
+        bottles
         
         # gnome essentials
         pkgs.gnome3.gnome-tweaks
@@ -228,10 +232,10 @@
         gnome-calculator gnome-calendar gnome-characters gnome-contacts
         gnome-font-viewer gnome-logs gnome-maps gnome-music
         gnome-disk-utility gnome-system-monitor pkgs.gnome-connections
-        pkgs.gnome-tour pkgs.gnome-photos pkgs.gnome-console
+        pkgs.gnome-tour pkgs.gnome-photos
 
         # I want these
-        # gnome-clocks gnome-screenshot gnome-weather
+        # gnome-clocks gnome-screenshot gnome-weather pkgs.gnome-console
     ];
 
     # nerdfonts

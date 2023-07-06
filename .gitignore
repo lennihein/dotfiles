@@ -3,7 +3,14 @@
 Downloads/
 Screenshots/
 Pictures/
+Music
+Pictures
+Templates
+Videos
 
+.steam/
+.steampath
+.steampid
 .ssh/
 .pki/
 .local/
@@ -53,6 +60,7 @@ Pictures/
 .config/fish/fish_variables
 .config/evolution/
 .config/rygel.conf
+.config/cef_user_data/
 
 ### USER
 
