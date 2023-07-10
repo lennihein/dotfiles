@@ -161,6 +161,10 @@
             # dev tools
             ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager cool-retro-term
 
+            # tex
+            texlive.combined.scheme-full
+            texstudio
+            
             # others
             google-chrome discord
         ];
