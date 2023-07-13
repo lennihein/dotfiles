@@ -21,9 +21,9 @@
             lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
                 config = config.nixpkgs.config;
             };
-            # lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
-            #     config = config.nixpkgs.config;
-            # };
+            lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
+                config = config.nixpkgs.config;
+            };
         };
     };
 
@@ -101,6 +101,9 @@
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
+    
+    # GNOME settings daemon
+    services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
     # virtualisation
     virtualisation.podman.enable = true;
@@ -144,6 +147,7 @@
     programs.git.enable = true;
     programs.xonsh.enable = true;
     programs.steam.enable = true;
+    programs.dconf.enable = true;
 
     # register fish as a shell
     environment.shells = with pkgs; [fish];
@@ -159,11 +163,12 @@
             helix starship
             
             # dev tools
-            ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager cool-retro-term
+            ghidra lennihein.gitkraken wireshark vscode lennihein-22-11.hyper virt-manager cool-retro-term
 
             # tex
             texlive.combined.scheme-full
             texstudio
+            inkscape-with-extensions # for svgs
             
             # others
             google-chrome discord
@@ -175,13 +180,16 @@
         wget
         lsof dig
         atool unzip
-        python3 gnumake cmake
+        python3 gnumake cmake clang gcc
         
         # command line tools 
         htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv procs fd duf
         
         # bottles
         bottles
+        
+        # add terminal instead of console
+        gnome.gnome-terminal
         
         # gnome essentials
         pkgs.gnome3.gnome-tweaks
@@ -236,10 +244,10 @@
         gnome-calculator gnome-calendar gnome-characters gnome-contacts
         gnome-font-viewer gnome-logs gnome-maps gnome-music
         gnome-disk-utility gnome-system-monitor pkgs.gnome-connections
-        pkgs.gnome-tour pkgs.gnome-photos
+        pkgs.gnome-tour pkgs.gnome-photos pkgs.gnome-console
 
         # I want these
-        # gnome-clocks gnome-screenshot gnome-weather pkgs.gnome-console
+        # gnome-clocks gnome-screenshot gnome-weather
     ];
 
     # nerdfonts
