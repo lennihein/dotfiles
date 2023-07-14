@@ -33,6 +33,8 @@ Videos
 .compose-cache/
 .hyper_plugins/
 .themes/
+.gk/
+.wget-hsts
 
 .config/QtProject.conf
 .config/Unknown Organization/
@@ -63,6 +65,7 @@ Videos
 .config/rygel.conf
 .config/cef_user_data/
 .config/texstudio/
+.config/inkscape/
 
 ### USER
 
