@@ -163,7 +163,7 @@
             helix starship kitty
             
             # dev tools
-            ghidra lennihein.gitkraken wireshark vscode lennihein-22-11.hyper virt-manager cool-retro-term
+            ghidra lennihein.gitkraken wireshark vscode lennihein-22-11.hyper virt-manager cool-retro-term meld
 
             # tex
             # texlive.combined.scheme-full
