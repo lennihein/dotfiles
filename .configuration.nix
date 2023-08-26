@@ -162,9 +162,9 @@
             ghidra lennihein.gitkraken wireshark vscode lennihein-22-11.hyper virt-manager cool-retro-term
 
             # tex
-            texlive.combined.scheme-full
-            texstudio
-            inkscape-with-extensions # for svgs
+            # texlive.combined.scheme-full
+            # texstudio
+            # inkscape-with-extensions # for svgs
             
             # others
             google-chrome discord
