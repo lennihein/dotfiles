@@ -183,7 +183,7 @@
         python3 gnumake cmake clang gcc
         
         # command line tools 
-        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved exa nvd direnv procs fd duf
+        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf
         
         # bottles
         bottles
@@ -251,7 +251,7 @@
     ];
 
     # nerdfonts
-    fonts.fonts = with pkgs; [
+    fonts.packages = with pkgs; [
         (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka"]; })
     ];
 
