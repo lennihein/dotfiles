@@ -178,7 +178,7 @@
     environment.systemPackages = with pkgs; [
         # essentials
         wget
-        lsof dig
+        lsof dig file
         atool unzip
         python3 gnumake cmake clang gcc
         
