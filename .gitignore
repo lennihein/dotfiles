@@ -1,5 +1,7 @@
 ### DEFAULTS
 
+*.bak
+
 Downloads/
 Screenshots/
 Pictures/
