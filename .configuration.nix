@@ -3,13 +3,12 @@
 {
     imports =
         [
-            /etc/nixos/device.nix
+            /etc/nixos/configuration.nix
             /etc/nixos/hardware-configuration.nix
         ];
 
     # put this into device.nix
-    # networking.hostName = "NixOS";  
-    
+        
     nixpkgs.config = {
         # allow unfree packages
         allowUnfree = true;
@@ -18,9 +17,9 @@
             # you can either ref a nix-channel:
             # old = import <nixpkgs-old> {
             # or a tarball:
-            lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
-                config = config.nixpkgs.config;
-            };
+            # lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
+            #     config = config.nixpkgs.config;
+            # };
             # lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
             #    config = config.nixpkgs.config;
             # };
@@ -29,26 +28,6 @@
 
     # enable flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-    # Bootloader
-    # system.nixos.label = "LostNix";
-    system.nixos.tags = [];
-    boot.loader.grub.enable = true;
-    boot.loader.grub.device = "nodev";
-    boot.kernelPackages = pkgs.linuxPackages_latest;
-    boot.loader.grub.efiSupport = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.loader.grub.useOSProber = true;
-    boot.plymouth.enable = true;
-
-    # dual boot with Windows
-    time.hardwareClockInLocalTime = true;
-    boot.supportedFilesystems = [ "ntfs" ];
-
-    # ignore lid switch when on AC
-    services.logind.extraConfig = ''
-        HandleLidSwitchExternalPower=ignore
-    '';
 
     # enable networking
     networking.networkmanager.enable = true;
@@ -71,66 +50,9 @@
         LC_TIME = "de_DE.UTF-8";
     };
 
-    # Enable nvidia (breaks some systems)
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.opengl.enable = true;
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    hardware.nvidia.powerManagement.enable = true;
-    hardware.nvidia.modesetting.enable = true;
-    hardware.nvidia.forceFullCompositionPipeline = true;
-
-    # Disable wayland 
-    services.xserver.displayManager.gdm.wayland = false;
-
-    # Enable the X11 windowing system.
-    services.xserver.enable = true;
-    # Enable the GNOME Desktop Environment.
-    services.xserver.displayManager.defaultSession = "gnome";
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
-
-    # HiDPI support
-    environment.variables = {
-        _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
-    };
-
-    # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = true;
-    services.xserver.displayManager.autoLogin.user = "lenni";
-
-    # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-    systemd.services."getty@tty1".enable = false;
-    systemd.services."autovt@tty1".enable = false;
-    
-    # GNOME settings daemon
-    services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
-
     # virtualisation
     virtualisation.podman.enable = true;
-    virtualisation.libvirtd.enable = true;
-
-    # Configure keymap in X11
-    services.xserver = {
-        layout = "us";
-        xkbVariant = "altgr-intl";
-    };
-
-    # Flat mouse profile
-    services.xserver.libinput = {
-        enable = true;
-        mouse.accelProfile = "flat";
-    };
-
-    # Enable sound with pipewire.
-    sound.enable = true;
-    hardware.pulseaudio.enable = false;
-    security.rtkit.enable = true;
-    services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-    };
+    # virtualisation.libvirtd.enable = true;
 
     # enable doas
     security.doas.enable = true;
@@ -141,12 +63,10 @@
     }];
 
     # enable packages
-    programs.wireshark.enable = true;
     programs.fish.enable = true;
     programs.vim.defaultEditor = true;
     programs.git.enable = true;
     programs.xonsh.enable = true;
-    programs.steam.enable = true;
     programs.dconf.enable = true;
 
     # register fish as a shell
@@ -155,6 +75,7 @@
     # define user
     users.users.lenni = {
         shell = pkgs.fish;
+        openssh.authorizedKeys.keys = [''ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzQEYS0fsylcZJRr9L3Bu1UP99hHWsw3euV7CIfzFRAyjrLORf904MqM8S6fnu7I+GtyDezOXR8W+3XktXVik6pnvmpHWpUWPpt7/sGG8uM3j49B0qXXz5oEe28YBFWYvYAcRCXsoXErNmVg0ZsuVJphDSKsOWYbdCtDTX95fJUUwNaJbj2dxZe4FShdc0zTJjyOdSW5LMWbYPrIXqxYd+6+WyL4XPNLgtVbivldQ0ASgtpb1JsYsu6AQ4HVeBsX69n4GwkdXDk8WohlGh7pYPQwRnBWY9PURvmkcZ0BgxWaSjVP0SXEq8KLYgii5TVMh0N93iHYn7Ifilm8Z4z/VpA+FX9c/zYaGyrpXOqE0BYb92cDYFN8uNQMVRokQ/luDd6rJjgbPPyvm5jo8TodHZnAnzNpEY8YqTAJuGou+st7ftiVG2NSzRO/jSfPZ84behffVvVQSy2CGPzWnfRpDQog6pVEKATquM8BBQ74TQUtmUbHfhwqkrzPsapo2LmWU= lenni@PC'' ];
         isNormalUser = true;
         description = "Lenni Hein";
         extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" ];
@@ -163,15 +84,7 @@
             helix starship kitty
             
             # dev tools
-            ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager cool-retro-term meld
-
-            # tex
-            # texlive.combined.scheme-full
-            # texstudio
-            # inkscape-with-extensions # for svgs
-            
-            # others
-            google-chrome discord
+            meld
         ];
     };
 
@@ -183,40 +96,7 @@
         python3 gnumake cmake clang gcc
         
         # command line tools 
-        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf
-        
-        # bottles
-        bottles
-        
-        # add terminal instead of console
-        gnome.gnome-terminal
-        
-        # gnome essentials
-        pkgs.gnome3.gnome-tweaks
-        gnomeExtensions.appindicator
-        gnomeExtensions.no-a11y
-        gnomeExtensions.clipman
-        
-        # menu and panel
-        gnomeExtensions.arcmenu
-        gnomeExtensions.dash-to-panel
-
-        # monitoring
-        gnomeExtensions.vitals
-        # gnomeExtensions.docker
-        # gnomeExtensions.sermon
-        
-        # visual candy
-        # gnomeExtensions.blur-my-shell
-        # gnomeExtensions.just-perfection
-        # gnomeExtensions.glasa
-        
-        # alternative to dash to panel
-        # gnomeExtensions.rocketbar
-        
-        # Dock
-        # gnomeExtensions.dock-from-dash
-        # gnomeExtensions.overview-dash-hide
+        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf bottom
     ];
     
     # disable manual
@@ -225,36 +105,6 @@
     # disable xterm
     services.xserver.excludePackages = [ pkgs.xterm ];
 
-    # disable optional gnome bloat
-    environment.gnome.excludePackages = with pkgs.gnome; [
-        baobab      # disk usage analyzer
-        cheese      # photo booth
-        eog         # image viewer
-        epiphany    # web browser
-        gedit       # text editor
-        simple-scan # document scanner
-        totem       # video player
-        yelp        # help viewer
-        evince      # document viewer
-        file-roller # archive manager
-        geary       # email client
-        seahorse    # password manager
-
-        # these should be self explanatory
-        gnome-calculator gnome-calendar gnome-characters gnome-contacts
-        gnome-font-viewer gnome-logs gnome-maps gnome-music
-        gnome-disk-utility gnome-system-monitor pkgs.gnome-connections
-        pkgs.gnome-tour pkgs.gnome-photos pkgs.gnome-console
-
-        # I want these
-        # gnome-clocks gnome-screenshot gnome-weather
-    ];
-
-    # nerdfonts
-    fonts.packages = with pkgs; [
-        (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka"]; })
-    ];
-
     # Enable the OpenSSH daemon.
     services.openssh = {
         enable = true;
@@ -262,13 +112,13 @@
             X11Forwarding = true;
             GatewayPorts = "yes";
             PasswordAuthentication = false;
-            PermitRootLogin = "no";
+            # PermitRootLogin = "no";
             KbdInteractiveAuthentication = false;
         };
     };
 
     # AdGuard Home
-    services.adguardhome.enable = true;
+    # services.adguardhome.enable = true;
 
     # disable
     networking.firewall = {
@@ -294,5 +144,5 @@
     # nix.gc.options = "--delete-older-than 14d";
 
     # NixOS version
-    system.stateVersion = "23.05";
+    system.stateVersion = "23.11";
 }
