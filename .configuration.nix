@@ -110,9 +110,9 @@
     virtualisation.libvirtd.enable = true;
 
     # Configure keymap in X11
-    services.xserver = {
+    services.xserver.xkb = {
         layout = "us";
-        xkbVariant = "altgr-intl";
+        variant = "altgr-intl";
     };
 
     # Flat mouse profile
@@ -183,7 +183,7 @@
         python3 gnumake cmake clang gcc
         
         # command line tools 
-        htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf
+        htop bottom gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf
         
         # bottles
         bottles
@@ -195,7 +195,7 @@
         pkgs.gnome3.gnome-tweaks
         gnomeExtensions.appindicator
         gnomeExtensions.no-a11y
-        gnomeExtensions.clipman
+        # gnomeExtensions.clipman
         
         # menu and panel
         gnomeExtensions.arcmenu
@@ -231,7 +231,6 @@
         cheese      # photo booth
         eog         # image viewer
         epiphany    # web browser
-        gedit       # text editor
         simple-scan # document scanner
         totem       # video player
         yelp        # help viewer
