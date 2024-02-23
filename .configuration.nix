@@ -21,6 +21,9 @@
             lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
                 config = config.nixpkgs.config;
             };
+            warp-beta = import (fetchTarball "https://github.com/imadnyc/nixpkgs/archive/refs/heads/warp-terminal-initial-linux.zip") {
+                config = config.nixpkgs.config;  
+            };
             # lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
             #    config = config.nixpkgs.config;
             # };
@@ -163,7 +166,7 @@
             helix starship kitty
             
             # dev tools
-            ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager cool-retro-term meld
+            ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager meld warp-beta.warp-terminal
 
             # tex
             # texlive.combined.scheme-full

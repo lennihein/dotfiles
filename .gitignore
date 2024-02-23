@@ -66,6 +66,9 @@ Videos
 .config/cef_user_data/
 .config/texstudio/
 .config/inkscape/
+.config/warp-terminal/
+.config/bottom/
+.config/CuteCom/
 
 ### USER
 
@@ -78,5 +81,5 @@ nixpkgs/
 transientfail/
 ridl/
 dotfiles/
-
 malana/
+uController/
