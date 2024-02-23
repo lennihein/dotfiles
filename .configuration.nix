@@ -152,7 +152,7 @@
     programs.vim.defaultEditor = true;
     programs.git.enable = true;
     programs.xonsh.enable = true;
-    programs.steam.enable = true;
+    # programs.steam.enable = true;
     programs.dconf.enable = true;
 
     # register fish as a shell
@@ -195,7 +195,7 @@
         htop bottom gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf
         
         # bottles
-        bottles
+        # bottles
         
         # add terminal instead of console
         gnome.gnome-terminal
