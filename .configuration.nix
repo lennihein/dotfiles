@@ -101,6 +101,13 @@
     services.xserver.displayManager.autoLogin.enable = true;
     services.xserver.displayManager.autoLogin.user = "lenni";
 
+    # udev rules for uController
+    services.udev.extraRules = ''
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="664", GROUP="plugdev"
+    '';
+    # and add user to plugdev group
+    users.groups.plugdev.members = [ "lenni" ];
+
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
@@ -160,7 +167,7 @@
         shell = pkgs.fish;
         isNormalUser = true;
         description = "Lenni Hein";
-        extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" ];
+        extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" "dialout"];
         packages = with pkgs; [
             # requires config
             helix starship kitty
@@ -175,6 +182,9 @@
             
             # others
             google-chrome discord
+
+            # ucontroller
+            cutecom usbutils gcc-arm-embedded openocd stlink stlink-gui
         ];
     };
 
