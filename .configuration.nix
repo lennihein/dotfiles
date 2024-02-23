@@ -74,16 +74,12 @@
         LC_TIME = "de_DE.UTF-8";
     };
 
-    # Enable nvidia (breaks some systems)
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.opengl.enable = true;
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    hardware.nvidia.powerManagement.enable = true;
-    hardware.nvidia.modesetting.enable = true;
-    hardware.nvidia.forceFullCompositionPipeline = true;
-
-    # Disable wayland 
-    services.xserver.displayManager.gdm.wayland = false;
+    # Ozone and fractional scaling
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+        [org.gnome.mutter]
+        experimental-features=['scale-monitor-framebuffer']
+    '';
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
@@ -94,7 +90,7 @@
 
     # HiDPI support
     environment.variables = {
-        _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+        _JAVA_OPTIONS = "-Dsun.java2d.uiScale=1";
     };
 
     # Enable automatic login for the user.
@@ -280,7 +276,7 @@
     };
 
     # AdGuard Home
-    services.adguardhome.enable = true;
+    services.adguardhome.enable = false;
 
     # disable
     networking.firewall = {
