@@ -36,8 +36,8 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     # Bootloader
-    # system.nixos.label = "LostNix";
-    system.nixos.tags = [];
+    system.nixos.label = "BSI";
+    # system.nixos.tags = ["BSI"]; # only works if label is disabled
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
     # latest kernel
@@ -46,6 +46,29 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.useOSProber = true;
     boot.plymouth.enable = true;
+
+    specialisation.nvidia.configuration = {
+        system.nixos.tags = ["nvidia"];
+        # Enable nvidia (breaks some systems)
+        services.xserver.videoDrivers = [ "nvidia" ];
+        hardware.opengl.enable = true;
+        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+        hardware.nvidia.powerManagement.enable = true;
+        hardware.nvidia.modesetting.enable = true;
+        hardware.nvidia.forceFullCompositionPipeline = true;
+    };
+
+    specialisation.latex.configuration = {
+        # define user
+        users.users.lenni = {
+            packages = with pkgs; [
+                # tex
+                texlive.combined.scheme-full
+                texstudio
+                inkscape-with-extensions # for svgs
+            ];
+        };
+    }; 
 
     # dual boot with Windows
     # time.hardwareClockInLocalTime = true;
