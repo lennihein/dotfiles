@@ -166,7 +166,7 @@
         extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" "dialout"];
         packages = with pkgs; [
             # requires config
-            helix starship kitty
+            helix starship kitty zoxide
             
             # dev tools
             ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager meld warp-beta.warp-terminal

@@ -12,3 +12,6 @@ set -Ux EDITOR hx
 set -x DIRENV_LOG_FORMAT ""
 # enable direnv
 direnv hook fish | source
+
+# zoxide
+zoxide init --cmd cd fish | source
