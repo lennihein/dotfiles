@@ -16,7 +16,9 @@
         # add old nixpkgs
         packageOverrides = pkgs: {
             # you can either ref a nix-channel:
-            # old = import <nixpkgs-old> {
+            unstable = import <nixos-unstable> {
+                config = config.nixpkgs.config;
+            };
             # or a tarball:
             lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
                 config = config.nixpkgs.config;
@@ -38,15 +40,16 @@
     system.nixos.tags = [];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    # latest kernel
+    # boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.loader.grub.efiSupport = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.useOSProber = true;
     boot.plymouth.enable = true;
 
     # dual boot with Windows
-    time.hardwareClockInLocalTime = true;
-    boot.supportedFilesystems = [ "ntfs" ];
+    # time.hardwareClockInLocalTime = true;
+    # boot.supportedFilesystems = [ "ntfs" ];
 
     # ignore lid switch when on AC
     services.logind.extraConfig = ''
@@ -169,7 +172,7 @@
             helix starship kitty zoxide
             
             # dev tools
-            ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager meld warp-beta.warp-terminal
+            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld warp-beta.warp-terminal
 
             # tex
             # texlive.combined.scheme-full
