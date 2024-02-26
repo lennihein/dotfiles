@@ -113,7 +113,7 @@
 
     # virtualisation
     virtualisation.podman.enable = true;
-    virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd.enable = false;
 
     # Configure keymap in X11
     services.xserver.xkb = {
@@ -278,11 +278,11 @@
     };
 
     # AdGuard Home
-    services.adguardhome.enable = false;
+    services.adguardhome.enable = true;
 
     # disable
     networking.firewall = {
-        enable = false;
+        enable = true;
         # allowedTCPPorts = [ ... ];
         # allowedUDPPorts = [ ... ];
     };
@@ -298,8 +298,8 @@
     nix.settings.auto-optimise-store = true;
 
     # garbage collection
-    # nix.gc.automatic = true;
-    # nix.gc.dates = "*-*-* 4:00:00";
+    nix.gc.automatic = true;
+    nix.gc.dates = "*-*-* 4:00:00";
     # without options it will only clean the store, not delete old generations
     # nix.gc.options = "--delete-older-than 14d";
 
