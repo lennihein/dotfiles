@@ -180,7 +180,7 @@
             google-chrome discord
 
             # ucontroller
-            cutecom usbutils gcc-arm-embedded openocd stlink stlink-gui
+            cutecom usbutils gcc-arm-embedded openocd
         ];
     };
 
@@ -204,7 +204,8 @@
         pkgs.gnome3.gnome-tweaks
         gnomeExtensions.appindicator
         gnomeExtensions.no-a11y
-        # gnomeExtensions.clipman
+        gnomeExtensions.pano
+        gnomeExtensions.trimmer
         
         # menu and panel
         gnomeExtensions.arcmenu
@@ -247,6 +248,7 @@
         file-roller # archive manager
         geary       # email client
         seahorse    # password manager
+        pkgs.snapshot    # camera
 
         # these should be self explanatory
         gnome-calculator gnome-calendar gnome-characters gnome-contacts
@@ -302,5 +304,5 @@
     # nix.gc.options = "--delete-older-than 14d";
 
     # NixOS version
-    system.stateVersion = "23.05";
+    system.stateVersion = "23.11";
 }
