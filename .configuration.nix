@@ -267,7 +267,7 @@
 
     # Enable the OpenSSH daemon.
     services.openssh = {
-        enable = true;
+        enable = false;
         settings = {
             X11Forwarding = true;
             GatewayPorts = "yes";
