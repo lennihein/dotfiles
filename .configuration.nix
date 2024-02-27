@@ -6,10 +6,7 @@
             /etc/nixos/device.nix
             /etc/nixos/hardware-configuration.nix
         ];
-
-    # put this into device.nix
-    # networking.hostName = "NixOS";  
-    
+   
     nixpkgs.config = {
         # allow unfree packages
         allowUnfree = true;
@@ -47,6 +44,26 @@
     # boot.loader.grub.useOSProber = true; # we don't need, since we don't have SecureBoot anyway
     boot.plymouth.enable = true;
 
+    ########################################################################
+
+    # Disable wayland 
+    services.xserver.displayManager.gdm.wayland = false;
+    # enable NVIDIA
+    services.xserver.videoDrivers = [ "nvidia" ];
+    # Enable OpenGL
+    hardware.opengl = {
+            enable = true;
+            driSupport = true;
+            driSupport32Bit = true;
+    };
+    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # or .production;
+    hardware.nvidia.powerManagement.enable = true;
+    hardware.nvidia.modesetting.enable = true;
+    hardware.nvidia.forceFullCompositionPipeline = true;
+    hardware.nvidia.nvidiaSettings = true;
+
+    ########################################################################
+
     specialisation.latex.configuration = {
         system.nixos.tags = ["latex"];
         # define user
@@ -67,24 +84,24 @@
         # enable virtualbox
         virtualisation.virtualbox.host.enable = true;
         virtualisation.virtualbox.host.enableExtensionPack = true;
-    }; 
-    
-    specialisation.x11-nvidia.configuration = {
-        # Disable wayland 
-        services.xserver.displayManager.gdm.wayland = false;
-        # enable NVIDIA
-        services.xserver.videoDrivers = [ "nvidia" ];
-        # Enable OpenGL
-        hardware.opengl = {
-                enable = true;
-                driSupport = true;
-                driSupport32Bit = true;
+        users.groups.vbox.members = [ "lenni" ];
+    };
+
+    specialisation.ucontroller.configuration = {
+        system.nixos.tags = ["ucontroller"];
+        # udev rules for uController
+        services.udev.extraRules = ''
+            ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="664", GROUP="plugdev"
+        '';
+        # and add user to plugdev group
+        users.groups.plugdev.members = [ "lenni" ];
+        users.groups.dialout.members = [ "lenni" ];
+        # ucontroller packages
+        users.users.lenni = {
+            packages = with pkgs; [
+                cutecom usbutils gcc-arm-embedded openocd
+            ];
         };
-        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; # stable;
-        hardware.nvidia.powerManagement.enable = true;
-        hardware.nvidia.modesetting.enable = true;
-        hardware.nvidia.forceFullCompositionPipeline = true;
-        hardware.nvidia.nvidiaSettings = true;
     };
 
     # dual boot with Windows
@@ -130,6 +147,8 @@
     services.xserver.displayManager.defaultSession = "gnome";
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
+    # disable gnome keyring
+    services.gnome.gnome-keyring.enable = lib.mkForce false;
 
     # HiDPI support
     environment.variables = {
@@ -139,13 +158,6 @@
     # Enable automatic login for the user.
     services.xserver.displayManager.autoLogin.enable = true;
     services.xserver.displayManager.autoLogin.user = "lenni";
-
-    # udev rules for uController
-    services.udev.extraRules = ''
-        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="664", GROUP="plugdev"
-    '';
-    # and add user to plugdev group
-    users.groups.plugdev.members = [ "lenni" ];
 
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
@@ -206,7 +218,7 @@
         shell = pkgs.fish;
         isNormalUser = true;
         description = "Lenni Hein";
-        extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" "dialout" "vbox"];
+        extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd"];
         packages = with pkgs; [
             # requires config
             helix starship kitty zoxide
@@ -216,9 +228,6 @@
             
             # others
             google-chrome discord
-
-            # ucontroller
-            cutecom usbutils gcc-arm-embedded openocd
         ];
     };
 
