@@ -326,6 +326,7 @@
 
     # AdGuard Home
     services.adguardhome.enable = true;
+    networking.nameservers = [ "127.0.0.1" ];
 
     # disable
     networking.firewall = {
