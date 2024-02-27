@@ -1,3 +1,5 @@
 [user]
 	email = git@lennihein.com
 	name = Lenni Hein
+[init]
+	defaultBranch = main
