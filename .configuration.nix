@@ -41,24 +41,14 @@
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
     # latest kernel
-    # boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.loader.grub.efiSupport = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    boot.loader.grub.useOSProber = true;
+    # boot.loader.grub.useOSProber = true; # we don't need, since we don't have SecureBoot anyway
     boot.plymouth.enable = true;
 
-    specialisation.nvidia.configuration = {
-        system.nixos.tags = ["nvidia"];
-        # Enable nvidia (breaks some systems)
-        services.xserver.videoDrivers = [ "nvidia" ];
-        hardware.opengl.enable = true;
-        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-        hardware.nvidia.powerManagement.enable = true;
-        hardware.nvidia.modesetting.enable = true;
-        hardware.nvidia.forceFullCompositionPipeline = true;
-    };
-
     specialisation.latex.configuration = {
+        system.nixos.tags = ["latex"];
         # define user
         users.users.lenni = {
             packages = with pkgs; [
@@ -71,12 +61,31 @@
     }; 
 
     specialisation.vbox.configuration = {
+        system.nixos.tags = ["vbox"];
         # disable KVM
         virtualisation.libvirtd.enable = lib.mkForce false;
         # enable virtualbox
         virtualisation.virtualbox.host.enable = true;
         virtualisation.virtualbox.host.enableExtensionPack = true;
     }; 
+    
+    specialisation.x11-nvidia.configuration = {
+        # Disable wayland 
+        services.xserver.displayManager.gdm.wayland = false;
+        # enable NVIDIA
+        services.xserver.videoDrivers = [ "nvidia" ];
+        # Enable OpenGL
+        hardware.opengl = {
+                enable = true;
+                driSupport = true;
+                driSupport32Bit = true;
+        };
+        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; # stable;
+        hardware.nvidia.powerManagement.enable = true;
+        hardware.nvidia.modesetting.enable = true;
+        hardware.nvidia.forceFullCompositionPipeline = true;
+        hardware.nvidia.nvidiaSettings = true;
+    };
 
     # dual boot with Windows
     time.hardwareClockInLocalTime = true;
@@ -204,11 +213,6 @@
             
             # dev tools
             ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld warp-beta.warp-terminal
-
-            # tex
-            # texlive.combined.scheme-full
-            # texstudio
-            # inkscape-with-extensions # for svgs
             
             # others
             google-chrome discord
