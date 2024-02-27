@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
     imports =
@@ -68,6 +68,14 @@
                 inkscape-with-extensions # for svgs
             ];
         };
+    }; 
+
+    specialisation.vbox.configuration = {
+        # disable KVM
+        virtualisation.libvirtd.enable = lib.mkForce false;
+        # enable virtualbox
+        virtualisation.virtualbox.host.enable = true;
+        virtualisation.virtualbox.host.enableExtensionPack = true;
     }; 
 
     # dual boot with Windows
@@ -189,7 +197,7 @@
         shell = pkgs.fish;
         isNormalUser = true;
         description = "Lenni Hein";
-        extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" "dialout"];
+        extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" "dialout" "vbox"];
         packages = with pkgs; [
             # requires config
             helix starship kitty zoxide
