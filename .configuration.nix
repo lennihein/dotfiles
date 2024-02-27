@@ -16,7 +16,9 @@
         # add old nixpkgs
         packageOverrides = pkgs: {
             # you can either ref a nix-channel:
-            # old = import <nixpkgs-old> {
+            unstable = import <nixos-unstable> {
+                config = config.nixpkgs.config;
+            };
             # or a tarball:
             lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
                 config = config.nixpkgs.config;
@@ -34,15 +36,39 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     # Bootloader
-    # system.nixos.label = "LostNix";
-    system.nixos.tags = [];
+    # system.nixos.label = "NixOS";
+    # system.nixos.tags = ["BSI"]; # only works if label is disabled
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    # latest kernel
+    # boot.kernelPackages = pkgs.linuxPackages_latest;
     boot.loader.grub.efiSupport = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.useOSProber = true;
     boot.plymouth.enable = true;
+
+    specialisation.nvidia.configuration = {
+        system.nixos.tags = ["nvidia"];
+        # Enable nvidia (breaks some systems)
+        services.xserver.videoDrivers = [ "nvidia" ];
+        hardware.opengl.enable = true;
+        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+        hardware.nvidia.powerManagement.enable = true;
+        hardware.nvidia.modesetting.enable = true;
+        hardware.nvidia.forceFullCompositionPipeline = true;
+    };
+
+    specialisation.latex.configuration = {
+        # define user
+        users.users.lenni = {
+            packages = with pkgs; [
+                # tex
+                texlive.combined.scheme-full
+                texstudio
+                inkscape-with-extensions # for svgs
+            ];
+        };
+    }; 
 
     # dual boot with Windows
     time.hardwareClockInLocalTime = true;
@@ -74,16 +100,12 @@
         LC_TIME = "de_DE.UTF-8";
     };
 
-    # Enable nvidia (breaks some systems)
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.opengl.enable = true;
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    hardware.nvidia.powerManagement.enable = true;
-    hardware.nvidia.modesetting.enable = true;
-    hardware.nvidia.forceFullCompositionPipeline = true;
-
-    # Disable wayland 
-    services.xserver.displayManager.gdm.wayland = false;
+    # Ozone and fractional scaling
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+        [org.gnome.mutter]
+        experimental-features=['scale-monitor-framebuffer']
+    '';
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
@@ -170,10 +192,10 @@
         extraGroups = [ "networkmanager" "wheel" "wireshark" "libvirtd" "dialout"];
         packages = with pkgs; [
             # requires config
-            helix starship kitty
+            helix starship kitty zoxide
             
             # dev tools
-            ghidra gitkraken wireshark vscode lennihein-22-11.hyper virt-manager meld warp-beta.warp-terminal
+            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld warp-beta.warp-terminal
 
             # tex
             # texlive.combined.scheme-full
@@ -184,7 +206,7 @@
             google-chrome discord
 
             # ucontroller
-            cutecom usbutils gcc-arm-embedded openocd stlink stlink-gui
+            cutecom usbutils gcc-arm-embedded openocd
         ];
     };
 
@@ -209,6 +231,7 @@
         gnomeExtensions.appindicator
         gnomeExtensions.no-a11y
         # gnomeExtensions.clipman
+        gnomeExtensions.trimmer
         
         # menu and panel
         gnomeExtensions.arcmenu
@@ -251,6 +274,7 @@
         file-roller # archive manager
         geary       # email client
         seahorse    # password manager
+        pkgs.snapshot    # camera
 
         # these should be self explanatory
         gnome-calculator gnome-calendar gnome-characters gnome-contacts

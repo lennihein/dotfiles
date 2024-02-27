@@ -8,7 +8,12 @@ set -x MANPAGER 'bash -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man 
 
 set -Ux EDITOR hx
 
+set -g fish_greeting
+
 # silent direnv
 set -x DIRENV_LOG_FORMAT ""
 # enable direnv
 direnv hook fish | source
+
+# zoxide
+zoxide init --cmd cd fish | source
