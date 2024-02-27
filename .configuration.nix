@@ -20,7 +20,10 @@
             lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
                 config = config.nixpkgs.config;
             };
-            warp-beta = import (fetchTarball "https://github.com/imadnyc/nixpkgs/archive/refs/heads/warp-terminal-initial-linux.zip") {
+            # warp-beta = import (fetchTarball "https://github.com/imadnyc/nixpkgs/archive/refs/heads/warp-terminal-initial-linux.zip") {
+            #     config = config.nixpkgs.config;  
+            # };
+            warp = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/71f6d0f5e441be3c283fb81989180f04da5049f6.zip") {
                 config = config.nixpkgs.config;  
             };
             # lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
@@ -224,7 +227,7 @@
             helix starship kitty zoxide
             
             # dev tools
-            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld warp-beta.warp-terminal
+            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld warp.warp-terminal
             
             # others
             google-chrome discord
@@ -251,8 +254,8 @@
         pkgs.gnome3.gnome-tweaks
         gnomeExtensions.appindicator
         gnomeExtensions.no-a11y
-        gnomeExtensions.pano
         gnomeExtensions.trimmer
+        gnomeExtensions.clipboard-indicator
         
         # menu and panel
         gnomeExtensions.arcmenu
