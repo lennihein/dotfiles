@@ -37,7 +37,7 @@
 
     # Bootloader
     # system.nixos.label = "NixOS";
-    # system.nixos.tags = ["BSI"]; # only works if label is disabled
+    system.nixos.tags = ["BSI"]; # only works if label is disabled
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "nodev";
     # latest kernel
@@ -49,21 +49,23 @@
 
     ########################################################################
 
-    # Disable wayland 
-    services.xserver.displayManager.gdm.wayland = false;
-    # enable NVIDIA
-    services.xserver.videoDrivers = [ "nvidia" ];
-    # Enable OpenGL
-    hardware.opengl = {
-            enable = true;
-            driSupport = true;
-            driSupport32Bit = true;
+    specialisation.nvidia.configuration = {
+        # Disable wayland 
+        services.xserver.displayManager.gdm.wayland = false;
+        # enable NVIDIA
+        services.xserver.videoDrivers = [ "nvidia" ];
+        # Enable OpenGL
+        hardware.opengl = {
+                enable = true;
+                driSupport = true;
+                driSupport32Bit = true;
+        };
+        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; # or stable;
+        hardware.nvidia.powerManagement.enable = true;
+        hardware.nvidia.modesetting.enable = true;
+        hardware.nvidia.forceFullCompositionPipeline = true;
+        hardware.nvidia.nvidiaSettings = true;
     };
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # or .production;
-    hardware.nvidia.powerManagement.enable = true;
-    hardware.nvidia.modesetting.enable = true;
-    hardware.nvidia.forceFullCompositionPipeline = true;
-    hardware.nvidia.nvidiaSettings = true;
 
     ########################################################################
 
