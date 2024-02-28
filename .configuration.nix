@@ -67,28 +67,28 @@
 
     ########################################################################
 
-    specialisation.latex.configuration = {
-        system.nixos.tags = ["latex"];
-        # define user
-        users.users.lenni = {
-            packages = with pkgs; [
-                # tex
-                texlive.combined.scheme-full
-                texstudio
-                inkscape-with-extensions # for svgs
-            ];
-        };
-    }; 
+    # specialisation.latex.configuration = {
+    #     system.nixos.tags = ["latex"];
+    #     # define user
+    #     users.users.lenni = {
+    #         packages = with pkgs; [
+    #             # tex
+    #             texlive.combined.scheme-full
+    #             texstudio
+    #             inkscape-with-extensions # for svgs
+    #         ];
+    #     };
+    # }; 
 
-    specialisation.vbox.configuration = {
-        system.nixos.tags = ["vbox"];
-        # disable KVM
-        virtualisation.libvirtd.enable = lib.mkForce false;
-        # enable virtualbox
-        virtualisation.virtualbox.host.enable = true;
-        virtualisation.virtualbox.host.enableExtensionPack = true;
-        users.groups.vbox.members = [ "lenni" ];
-    };
+    # specialisation.vbox.configuration = {
+    #     system.nixos.tags = ["vbox"];
+    #     # disable KVM
+    #     virtualisation.libvirtd.enable = lib.mkForce false;
+    #     # enable virtualbox
+    #     virtualisation.virtualbox.host.enable = true;
+    #     virtualisation.virtualbox.host.enableExtensionPack = true;
+    #     users.groups.vbox.members = [ "lenni" ];
+    # };
 
     specialisation.ucontroller.configuration = {
         system.nixos.tags = ["ucontroller"];
