@@ -20,15 +20,9 @@
             lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
                 config = config.nixpkgs.config;
             };
-            # warp-beta = import (fetchTarball "https://github.com/imadnyc/nixpkgs/archive/refs/heads/warp-terminal-initial-linux.zip") {
-            #     config = config.nixpkgs.config;  
-            # };
-            warp = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/71f6d0f5e441be3c283fb81989180f04da5049f6.zip") {
-                config = config.nixpkgs.config;  
+            lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
+                config = config.nixpkgs.config;
             };
-            # lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
-            #    config = config.nixpkgs.config;
-            # };
         };
     };
 
@@ -70,7 +64,9 @@
     specialisation.latex.configuration = {
         system.nixos.tags = ["latex"];
         # define user
-        users.users.lenni = {
+        users.users.lenni 
+        
+        = {
             packages = with pkgs; [
                 # tex
                 texlive.combined.scheme-full
@@ -171,7 +167,7 @@
 
     # virtualisation
     virtualisation.podman.enable = true;
-    virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd.enable = false;
 
     # Configure keymap in X11
     services.xserver.xkb = {
@@ -227,7 +223,7 @@
             helix starship kitty zoxide
             
             # dev tools
-            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld warp.warp-terminal
+            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld lennihein.warp-terminal mission-center
             
             # others
             google-chrome discord
