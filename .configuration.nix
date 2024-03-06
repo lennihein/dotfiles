@@ -76,15 +76,15 @@
         };
     }; 
 
-    specialisation.vbox.configuration = {
-        system.nixos.tags = ["vbox"];
-        # disable KVM
-        virtualisation.libvirtd.enable = lib.mkForce false;
-        # enable virtualbox
-        virtualisation.virtualbox.host.enable = true;
-        virtualisation.virtualbox.host.enableExtensionPack = true;
-        users.groups.vbox.members = [ "lenni" ];
-    };
+    # specialisation.vbox.configuration = {
+    #     system.nixos.tags = ["vbox"];
+    #     # disable KVM
+    #     virtualisation.libvirtd.enable = lib.mkForce false;
+    #     # enable virtualbox
+    #     virtualisation.virtualbox.host.enable = true;
+    #     virtualisation.virtualbox.host.enableExtensionPack = true;
+    #     users.groups.vbox.members = [ "lenni" ];
+    # };
 
     specialisation.ucontroller.configuration = {
         system.nixos.tags = ["ucontroller"];
