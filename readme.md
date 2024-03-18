@@ -155,3 +155,57 @@ paru -S alsa-lib
             },
 ...
 ```
+
+### VS Code
+
+`settings.json`
+```
+{
+    "editor.fontFamily": "IosevkaTerm Nerd Font Mono",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.fontLigatures": true,
+    "extensions.ignoreRecommendations": true,
+    "workbench.statusBar.visible": true,
+    "files.eol": "\n",
+    "explorer.confirmDelete": false,
+    "workbench.statusBar.feedback.visible": false,
+    "terminal.integrated.cursorStyle": "line",
+    "editor.cursorWidth": 2,
+    "editor.minimap.renderCharacters": false,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.minimap.enabled": true,
+    "files.exclude": {
+        "**/.idea": true
+    },
+    "editor.guides.indentation": false,
+    "telemetry.telemetryLevel": "off",
+    "workbench.colorTheme": "Dracula",
+    "window.zoomLevel": 1,
+    "git.autofetch": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.suggestSelection": "first",
+    "security.workspace.trust.enabled": false,
+    "terminal.integrated.tabs.enabled": false,
+}
+```
+
+keybindings.json
+```
+[
+    {
+        "key": "ctrl+shift+oem_3",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": ""
+    },
+    {
+        "key": "ctrl+oem_3",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": ""
+    },
+    {
+        "key": "ctrl+shift+oem_3",
+        "command": "-workbench.action.terminal.new",
+        "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+    }
+]
+```
