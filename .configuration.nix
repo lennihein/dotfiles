@@ -82,9 +82,6 @@
         packages = with pkgs; [
             # requires config
             helix starship kitty
-            
-            # dev tools
-            meld
         ];
     };
 
@@ -115,7 +112,7 @@
     services.headscale = {
         enable = true;
         address = "0.0.0.0";
-        port = 5501;
+        port = 3001;
         user = "lenni";
         settings = { 
             server_url = "https://vpn.bes.lostinthe.cloud";
@@ -123,7 +120,7 @@
                 nameservers = ["195.20.234.64"];
                 override_local_dns = true;
             };
-        };
+        }; 
     };
     
     # Enable the OpenSSH daemon.
@@ -149,7 +146,7 @@
             }
             
             vpn.bes.lostinthe.cloud {
-                reverse_proxy localhost:5501
+                reverse_proxy localhost:3001
             }
         '';
     };
