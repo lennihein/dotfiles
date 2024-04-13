@@ -156,9 +156,10 @@
 
     # disable
     networking.firewall = {
-        enable = false;
-        # allowedTCPPorts = [ ... ];
-        # allowedUDPPorts = [ ... ];
+        enable = true;
+        trustedInterfaces = [ "tailscale0" ];
+        allowedTCPPorts = [ 853 443 80 ];
+        allowedUDPPorts = [ 853 ];
     };
     # for tailscale
     networking.nftables.enable = true;
