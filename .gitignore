@@ -80,3 +80,5 @@ ridl/
 dotfiles/
 
 malana/
+.custom-caddy.nix
+.configuration.nix.WILDCARD
