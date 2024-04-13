@@ -117,7 +117,7 @@
         settings = { 
             server_url = "https://vpn.bes.lostinthe.cloud";
             dns_config = {
-                nameservers = ["195.20.234.64"];
+                nameservers = ["100.64.0.2"];
                 override_local_dns = true;
             };
         }; 
@@ -137,16 +137,19 @@
 
     # AdGuard Home
     services.adguardhome.enable = true;
-
     services.caddy = {
         enable = true;
-        extraConfig = ''
-            adguard.bes.lostinthe.cloud {
-                reverse_proxy localhost:3000
-            }
-            
+        extraConfig = '' 
             vpn.bes.lostinthe.cloud {
                 reverse_proxy localhost:3001
+            }
+
+            adguard.bes.lostinthe.cloud {
+                reverse_proxy http://127.0.0.1:3000
+            }
+
+            dns.bes.lostinthe.cloud {
+                respond "try TLS or QUICK..."
             }
         '';
     };
