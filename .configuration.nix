@@ -43,25 +43,35 @@
 
     ########################################################################
 
-    specialisation.nvidia.configuration = {
-        # Disable wayland 
-        services.xserver.displayManager.gdm.wayland = false;
-        # enable NVIDIA
-        services.xserver.videoDrivers = [ "nvidia" ];
-        # Enable OpenGL
-        hardware.opengl = {
-                enable = true;
-                driSupport = true;
-                driSupport32Bit = true;
-        };
-        hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; # or stable;
-        hardware.nvidia.powerManagement.enable = true;
-        hardware.nvidia.modesetting.enable = true;
-        hardware.nvidia.forceFullCompositionPipeline = true;
-        hardware.nvidia.nvidiaSettings = true;
-    };
+    # specialisation.nvidia.configuration = {
+    #     # Disable wayland 
+    #     services.xserver.displayManager.gdm.wayland = false;
+    #     # enable NVIDIA
+    #     services.xserver.videoDrivers = [ "nvidia" ];
+    #     # Enable OpenGL
+    #     hardware.opengl = {
+    #             enable = true;
+    #             driSupport = true;
+    #             driSupport32Bit = true;
+    #     };
+    #     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production; # or stable;
+    #     hardware.nvidia.powerManagement.enable = true;
+    #     hardware.nvidia.modesetting.enable = true;
+    #     hardware.nvidia.forceFullCompositionPipeline = true;
+    #     hardware.nvidia.nvidiaSettings = true;
+    # };
 
     ########################################################################
+
+    specialisation.tpm.configuration = {
+        security.tpm2.enable = true;
+        security.tpm2.pkcs11.enable = true;  # expose /run/current-system/sw/lib/libtpm2_pkcs11.so
+        security.tpm2.tctiEnvironment.enable = true;  # TPM2TOOLS_TCTI and TPM2_PKCS11_TCTI env variables
+        users.users.lenni.extraGroups = [ "tss" ];  # tss group has access to TPM devices
+        environment.systemPackages = with pkgs; [
+            tpm2-tools
+        ];
+    };
 
     specialisation.latex.configuration = {
         system.nixos.tags = ["latex"];
@@ -78,26 +88,24 @@
         };
     }; 
 
-    specialisation.vbox.configuration = {
-        system.nixos.tags = ["vbox"];
-        # disable KVM
-        virtualisation.libvirtd.enable = lib.mkForce false;
-        # enable virtualbox
-        virtualisation.virtualbox.host.enable = true;
-        virtualisation.virtualbox.host.enableExtensionPack = true;
-        users.groups.vbox.members = [ "lenni" ];
-    };
+    # specialisation.vbox.configuration = {
+    #     system.nixos.tags = ["vbox"];
+    #     # disable KVM
+    #     virtualisation.libvirtd.enable = lib.mkForce false;
+    #     # enable virtualbox
+    #     virtualisation.virtualbox.host.enable = true;
+    #     virtualisation.virtualbox.host.enableExtensionPack = true;
+    #     users.groups.vbox.members = [ "lenni" ];
+    # };
 
-    specialisation.ucontroller.configuration = {
-        system.nixos.tags = ["ucontroller"];
-        # udev rules for uController
+    specialisation.uController.configuration = {
         services.udev.extraRules = ''
-            ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="664", GROUP="plugdev"
+            ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="660", GROUP="plugdev"
         '';
         # and add user to plugdev group
         users.groups.plugdev.members = [ "lenni" ];
         users.groups.dialout.members = [ "lenni" ];
-        # ucontroller packages
+        # extra user packages
         users.users.lenni = {
             packages = with pkgs; [
                 cutecom usbutils gcc-arm-embedded openocd
@@ -226,9 +234,9 @@
             
             # dev tools
             ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld lennihein.warp-terminal mission-center
-            
+
             # others
-            google-chrome discord
+            google-chrome
         ];
     };
 
@@ -241,9 +249,6 @@
         
         # command line tools 
         htop bottom gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf
-        
-        # bottles
-        # bottles
         
         # add terminal instead of console
         gnome.gnome-terminal
