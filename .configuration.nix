@@ -44,8 +44,8 @@
     ########################################################################
 
     # specialisation.nvidia.configuration = {
-    #     # Disable wayland 
-    #     services.xserver.displayManager.gdm.wayland = false;
+    # Disable wayland 
+    services.xserver.displayManager.gdm.wayland = false;
     #     # enable NVIDIA
     #     services.xserver.videoDrivers = [ "nvidia" ];
     #     # Enable OpenGL
@@ -177,7 +177,7 @@
 
     # virtualisation
     virtualisation.podman.enable = true;
-    virtualisation.libvirtd.enable = false;
+    virtualisation.libvirtd.enable = true;
 
     # Configure keymap in X11
     services.xserver.xkb = {
@@ -252,7 +252,13 @@
         
         # add terminal instead of console
         gnome.gnome-terminal
-        
+
+        # distrobox
+        distrobox
+
+        # virtual filesystem for shared folders in libvirt
+        virtiofsd
+
         # gnome essentials
         pkgs.gnome3.gnome-tweaks
         gnomeExtensions.appindicator

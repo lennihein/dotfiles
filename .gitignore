@@ -8,6 +8,8 @@ Pictures
 Templates
 Videos
 
+.cargo/
+.rustup/
 .steam/
 .steampath
 .steampid
@@ -35,6 +37,7 @@ Videos
 .themes/
 .gk/
 .wget-hsts
+.lesshst
 
 .config/QtProject.conf
 .config/Unknown Organization/
@@ -70,6 +73,8 @@ Videos
 .config/bottom/
 .config/CuteCom/
 .config/VirtualBox/
+.config/monitors.xml~
+.config/Thunar/
 
 ### USER
 
@@ -86,3 +91,5 @@ malana/
 uController/
 cpu-emulator/
 uc_04_03_24.zip
+shared/
+AliGn   
