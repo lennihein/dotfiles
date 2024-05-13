@@ -233,7 +233,8 @@
             helix starship kitty zoxide
             
             # dev tools
-            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld lennihein.warp-terminal mission-center
+            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld 
+            lennihein.warp-terminal mission-center obsidian            
 
             # others
             google-chrome
