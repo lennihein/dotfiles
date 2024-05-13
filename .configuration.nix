@@ -234,7 +234,7 @@
             
             # dev tools
             ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld 
-            lennihein.warp-terminal mission-center obsidian            
+            lennihein.warp-terminal mission-center unstable.obsidian            
 
             # others
             google-chrome
