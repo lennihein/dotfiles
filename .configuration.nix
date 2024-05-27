@@ -260,6 +260,9 @@
         # virtual filesystem for shared folders in libvirt
         virtiofsd
 
+        # ancient fonts
+        aegyptus
+
         # gnome essentials
         pkgs.gnome3.gnome-tweaks
         gnomeExtensions.appindicator
@@ -267,12 +270,14 @@
         gnomeExtensions.trimmer
         gnomeExtensions.clipboard-indicator
         
-        # menu and panel
-        gnomeExtensions.arcmenu
+        # menu, dock and panel
+        # gnomeExtensions.arcmenu
         gnomeExtensions.dash-to-panel
-
+        # gnomeExtensions.dock-from-dash
+        # gnomeExtensions.rocketbar
+        
         # monitoring
-        gnomeExtensions.vitals
+        # gnomeExtensions.vitals
         # gnomeExtensions.docker
         # gnomeExtensions.sermon
         
@@ -280,13 +285,9 @@
         # gnomeExtensions.blur-my-shell
         # gnomeExtensions.just-perfection
         # gnomeExtensions.glasa
-        
-        # alternative to dash to panel
-        # gnomeExtensions.rocketbar
-        
+                
         # Dock
         # gnomeExtensions.dock-from-dash
-        # gnomeExtensions.overview-dash-hide
     ];
     
     # disable manual
