@@ -135,6 +135,23 @@
         };
     };
 
+    # gitea
+    services.gitea = {
+        enable = true;
+        domain = "git.lennihein.com";
+        httpPort = 3002;
+    };
+
+    services.hedgedoc = {
+        enable = true;
+        settings = {
+            domain = "md.lennihein.com";
+            port = 3003;
+            protocolUseSSL = true;
+            services.gitea.settings.server.ROOT_URL = "https://md.lennihein.com";
+        };
+    };
+
     # AdGuard Home
     services.adguardhome.enable = true;
     services.caddy = {
@@ -150,6 +167,14 @@
 
             dns.bes.lostinthe.cloud {
                 respond "try TLS or QUICK..."
+            } 
+
+            git.lennihein.com {
+                reverse_proxy localhost:3002
+            }
+
+            md.lennihein.com {
+                reverse_proxy localhost:3003
             }
         '';
     };
@@ -167,7 +192,7 @@
     # automatic upgrades
     # system.autoUpgrade.enable = true;
     # for unmanaged server enable this:
-    # system.autoUpgrade.allowReboot = false;
+    # system.autoUpgrade.allowReboot = true;
     # every day at 4am    
     # system.autoUpgrade.dates = "*-*-* 4:00:00";
 
