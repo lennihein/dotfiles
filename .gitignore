@@ -39,6 +39,7 @@ Videos
 .wget-hsts
 .lesshst
 
+.config/libreoffice/
 .config/QtProject.conf
 .config/Unknown Organization/
 .config/btop/
@@ -96,3 +97,5 @@ shared/
 AliGn
 samples/
 thoth/
+TPM
+.gitignore
