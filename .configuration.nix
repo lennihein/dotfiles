@@ -17,12 +17,12 @@
                 config = config.nixpkgs.config;
             };
             # or a tarball:
-            lennihein-22-11 = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/nixos-22.11.zip") {
-                config = config.nixpkgs.config;
-            };
-            lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
-                config = config.nixpkgs.config;
-            };
+            # lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
+            #     config = config.nixpkgs.config;
+            # };
+            # master = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.zip") {
+            #     config = config.nixpkgs.config;
+            # };
         };
     };
 
@@ -153,7 +153,7 @@
     # Enable the X11 windowing system.
     services.xserver.enable = true;
     # Enable the GNOME Desktop Environment.
-    services.xserver.displayManager.defaultSession = "gnome";
+    services.displayManager.defaultSession = "gnome";
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
     # disable gnome keyring
@@ -165,8 +165,8 @@
     };
 
     # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = true;
-    services.xserver.displayManager.autoLogin.user = "lenni";
+    services.displayManager.autoLogin.enable = true;
+    services.displayManager.autoLogin.user = "lenni";
 
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
@@ -186,7 +186,7 @@
     };
 
     # Flat mouse profile
-    services.xserver.libinput = {
+    services.libinput = {
         enable = true;
         mouse.accelProfile = "flat";
     };
@@ -233,11 +233,11 @@
             helix starship kitty zoxide
             
             # dev tools
-            ghidra unstable.gitkraken wireshark unstable.vscode lennihein-22-11.hyper virt-manager meld 
-            lennihein.warp-terminal mission-center unstable.obsidian            
+            ghidra unstable.gitkraken wireshark unstable.vscode virt-manager meld 
+            unstable.warp-terminal mission-center unstable.obsidian            
 
             # others
-            google-chrome
+            unstable.google-chrome
         ];
     };
 
