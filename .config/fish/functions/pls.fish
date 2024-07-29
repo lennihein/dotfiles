@@ -1,4 +1,3 @@
-# Defined in - @ line 1
-function pls --wraps=doas --description 'alias pls doas'
-  doas  $argv;
+function pls
+  doas  $(which $argv[1]) $argv[2..-1]      
 end
