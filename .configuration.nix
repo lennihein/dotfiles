@@ -94,6 +94,9 @@
         
         # command line tools 
         htop gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf bottom
+
+        # to maintain certs for adguard
+        certbot
     ];
     
     # disable manual
@@ -138,8 +141,10 @@
     # gitea
     services.gitea = {
         enable = true;
-        domain = "git.lennihein.com";
-        httpPort = 3002;
+        settings.server = {
+            DOMAIN = "git.lennihein.com";
+            HTTP_PORT = 3002;
+        };
     };
 
     services.hedgedoc = {
@@ -154,6 +159,8 @@
 
     # AdGuard Home
     services.adguardhome.enable = true;
+
+    # Caddy
     services.caddy = {
         enable = true;
         extraConfig = '' 
@@ -165,7 +172,7 @@
                 reverse_proxy http://127.0.0.1:3000
             }
 
-            dns.bes.lostinthe.cloud {
+            dns.lostinthe.cloud {
                 respond "try TLS or QUICK..."
             } 
 
