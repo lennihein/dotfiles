@@ -74,7 +74,7 @@ style = "bold red"
 format = '([\[](bold dimmed)[$all_status$ahead_behind]($style)[\]](bold dimmed)) '
 
 [git_metrics]
-disabled = false
+disabled = true
 format = "([\\[](dimmed bold)[+$added]($added_style) [-$deleted]($deleted_style)[\\]](dimmed bold)) "
 
 [time]
