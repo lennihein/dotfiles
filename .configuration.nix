@@ -20,9 +20,9 @@
             # lennihein = import (fetchTarball "https://github.com/lennihein/nixpkgs/archive/refs/heads/master.zip") {
             #     config = config.nixpkgs.config;
             # };
-            # master = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.zip") {
-            #     config = config.nixpkgs.config;
-            # };
+            master = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/master.zip") {
+                config = config.nixpkgs.config;
+            };
         };
     };
 
@@ -173,7 +173,7 @@
     systemd.services."autovt@tty1".enable = false;
     
     # GNOME settings daemon
-    services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+    services.udev.packages = with pkgs; [ gnome-settings-daemon ];
 
     # virtualisation
     virtualisation.podman.enable = true;
@@ -192,7 +192,6 @@
     };
 
     # Enable sound with pipewire.
-    sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
@@ -213,7 +212,10 @@
     # enable packages
     programs.wireshark.enable = true;
     programs.fish.enable = true;
-    programs.vim.defaultEditor = true;
+    programs.vim = {
+        defaultEditor = true;
+        enable = true;
+    };
     programs.git.enable = true;
     programs.xonsh.enable = true;
     # programs.steam.enable = true;
@@ -233,8 +235,8 @@
             helix starship kitty zoxide
             
             # dev tools
-            ghidra unstable.gitkraken wireshark unstable.vscode virt-manager meld 
-            unstable.warp-terminal mission-center unstable.obsidian            
+            ghidra master.gitkraken wireshark unstable.vscode virt-manager meld 
+            master.warp-terminal mission-center unstable.obsidian            
 
             # others
             unstable.google-chrome
@@ -252,7 +254,7 @@
         htop bottom gdu neofetch ranger tldr gitui bat fzf ripgrep pwndbg rm-improved eza nvd direnv procs fd duf
         
         # add terminal instead of console
-        gnome.gnome-terminal
+        gnome-terminal
 
         # distrobox
         distrobox
@@ -264,7 +266,7 @@
         aegyptus
 
         # gnome essentials
-        pkgs.gnome3.gnome-tweaks
+        pkgs.gnome-tweaks
         gnomeExtensions.appindicator
         gnomeExtensions.no-a11y
         gnomeExtensions.trimmer
@@ -297,7 +299,7 @@
     services.xserver.excludePackages = [ pkgs.xterm ];
 
     # disable optional gnome bloat
-    environment.gnome.excludePackages = with pkgs.gnome; [
+    environment.gnome.excludePackages = with pkgs; [
         baobab      # disk usage analyzer
         cheese      # photo booth
         eog         # image viewer
