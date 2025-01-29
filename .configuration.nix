@@ -73,20 +73,20 @@
         ];
     };
 
-    specialisation.latex.configuration = {
-        system.nixos.tags = ["latex"];
-        # define user
-        users.users.lenni 
-        
-        = {
-            packages = with pkgs; [
-                # tex
-                texlive.combined.scheme-full
-                texstudio
-                inkscape-with-extensions # for svgs
-            ];
-        };
-    }; 
+    # specialisation.latex.configuration = {
+    #     system.nixos.tags = ["latex"];
+    #     # define user
+    #     users.users.lenni 
+    #     
+    #     = {
+    #         packages = with pkgs; [
+    #             # tex
+    #             texlive.combined.scheme-full
+    #             texstudio
+    #             inkscape-with-extensions # for svgs
+    #          ];
+    #      };
+    #  }; 
 
     # specialisation.vbox.configuration = {
     #     system.nixos.tags = ["vbox"];
@@ -211,13 +211,13 @@
 
     # enable packages
     programs.wireshark.enable = true;
+    programs.direnv.enable = true;
     programs.fish.enable = true;
     programs.vim = {
         defaultEditor = true;
         enable = true;
     };
     programs.git.enable = true;
-    programs.xonsh.enable = true;
     # programs.steam.enable = true;
     programs.dconf.enable = true;
 
@@ -343,6 +343,9 @@
     # AdGuard Home
     services.adguardhome.enable = true;
     networking.nameservers = [ "127.0.0.1" ];
+
+    # wireguard
+    networking.wg-quick.interfaces.wg0.configFile = "/etc/nixos/files/wireguard/wg0.conf";
 
     # disable
     networking.firewall = {
