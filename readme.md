@@ -1,3 +1,9 @@
+# DEPRECATED
+
+-> https://github.com/lennihein/home-manager
+
+-> https://github.com/lennihein/nixos-config
+
 # Install ArchWSL
 
 ## Install application
