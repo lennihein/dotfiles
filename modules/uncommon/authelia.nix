@@ -68,6 +68,11 @@
             policy = "one_factor";
             subject = [ [ "group:admins" ] ];
           }
+          {
+            domain = "headplane.bes.lennihein.com";
+            policy = "one_factor";
+            subject = [ [ "group:admins" ] ];
+          }
         ];
       };
 

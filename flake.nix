@@ -138,6 +138,7 @@
             ./modules/uncommon/podman.nix
             ./modules/uncommon/ssh.nix
             ./modules/uncommon/headscale.nix
+            ./modules/uncommon/headplane.nix
             ./modules/uncommon/gitea.nix
             ./modules/uncommon/nix-store.nix
             ./modules/uncommon/adguard.nix

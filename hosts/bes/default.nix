@@ -88,6 +88,12 @@
           reverse_proxy localhost:7681
       }
 
+      headplane.bes.lennihein.com {
+          import forward_auth
+          redir / /admin/ 302
+          reverse_proxy localhost:3005
+      }
+
       share.bes.lennihein.com {
           reverse_proxy localhost:3004
       }
