@@ -105,8 +105,39 @@
             ./modules/uncommon/wireshark.nix
             ./modules/uncommon/tpm.nix
             ./modules/uncommon/adguard.nix
-            ./modules/uncommon/printing.nix
             ./hosts/ptah/hardware-configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
+              home-manager.extraSpecialArgs = sharedSpecialArgs;
+              home-manager.users.lenni = {
+                imports = [
+                  ./home/common/default.nix
+                  ./home/configs/dev.nix
+                  ./home/configs/desktop.nix
+                  ./home/configs/nixos.nix
+                ];
+              };
+            }
+          ];
+        };
+
+        anubis = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit pkgsStable; };
+          modules = [
+            ./modules/common
+            ./modules/desktop-environment/default.nix
+            ./modules/uncommon/podman.nix
+            ./modules/uncommon/kvm.nix
+            ./modules/uncommon/wireshark.nix
+            ./modules/uncommon/tpm.nix
+            ./modules/uncommon/ssh.nix
+            ./modules/uncommon/printing.nix
+            ./hosts/anubis/default.nix
+            ./hosts/anubis/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
