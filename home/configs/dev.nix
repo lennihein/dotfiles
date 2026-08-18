@@ -1,7 +1,6 @@
-{ config, pkgs, pkgsStable, pwndbg, ... }:
+{ config, pkgs, pkgsStable, ... }:
 {
   home.packages = with pkgs; [
     ghidra-bin meld
-    pwndbg
   ];
 }

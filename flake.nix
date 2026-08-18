@@ -5,7 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    pwndbg.url = "github:pwndbg/pwndbg";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +25,6 @@
       nixpkgs,
       nixpkgs-stable,
       nixpkgs-master,
-      pwndbg,
       home-manager,
       nixos-wsl,
       deploy-rs,
@@ -49,7 +47,6 @@
 
       sharedSpecialArgs = {
         inherit pkgsStable pkgsMaster;
-        pwndbg = pwndbg.packages.${system}.pwndbg;
       };
 
       mkHome = modules: home-manager.lib.homeManagerConfiguration {

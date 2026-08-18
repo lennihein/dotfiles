@@ -1,4 +1,4 @@
-{ pkgs, pwndbg, pkgsMaster, ... }:
+{ pkgs, pkgsMaster, ... }:
 {
   home.packages = with pkgs; [
     # TUI
@@ -10,6 +10,6 @@
     # network
     curl wget
     # debug
-    pwndbg
+    gef
   ];
 }
