@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -23,7 +22,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-stable,
       nixpkgs-master,
       home-manager,
       nixos-wsl,
@@ -36,17 +34,13 @@
         inherit system;
         config.allowUnfree = true;
       };
-      pkgsStable = import nixpkgs-stable {
-        inherit system;
-        config.allowUnfree = true;
-      };
       pkgsMaster = import nixpkgs-master {
         inherit system;
         config.allowUnfree = true;
       };
 
       sharedSpecialArgs = {
-        inherit pkgsStable pkgsMaster;
+        inherit pkgsMaster;
       };
 
       mkHome = modules: home-manager.lib.homeManagerConfiguration {
@@ -61,7 +55,7 @@
       nixosConfigurations = {
         dell = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit pkgsStable; };
+          specialArgs = sharedSpecialArgs;
           modules = [
             ./modules/common
             ./modules/laptop/default.nix
@@ -73,6 +67,7 @@
             ./modules/uncommon/tpm.nix
             ./modules/uncommon/ssh.nix
             ./modules/uncommon/printing.nix
+            ./modules/uncommon/termius.nix
             ./hosts/dell/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -94,7 +89,7 @@
 
         ptah = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit pkgsStable; };
+          specialArgs = sharedSpecialArgs;
           modules = [
             ./modules/common
             ./modules/laptop/default.nix
@@ -105,6 +100,7 @@
             ./modules/uncommon/wireshark.nix
             ./modules/uncommon/tpm.nix
             ./modules/uncommon/adguard.nix
+            ./modules/uncommon/termius.nix
             ./hosts/ptah/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -126,7 +122,7 @@
 
         anubis = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit pkgsStable; };
+          specialArgs = sharedSpecialArgs;
           modules = [
             ./modules/common
             ./modules/desktop-environment/default.nix
@@ -158,7 +154,7 @@
 
         bes = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit pkgsStable; };
+          specialArgs = sharedSpecialArgs;
           modules = [
             ./modules/common
             ./hosts/bes/default.nix
@@ -191,7 +187,7 @@
 
         wsl = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit pkgsStable; };
+          specialArgs = sharedSpecialArgs;
           modules = [
             nixos-wsl.nixosModules.default
             ./modules/common

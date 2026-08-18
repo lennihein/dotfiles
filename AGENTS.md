@@ -20,6 +20,6 @@
 ## Coding Style & Naming Conventions
 - Nix style: small, focused modules returning attribute sets; one option per line.
 - Indentation: 2 spaces preferred.
-- Inputs: main channel on `nixos-unstable`; stable channel exposed as `pkgsStable` (`nixos-25.05`), master channel as `pkgsMaster`.
+- Inputs: main channel on `nixos-unstable`; master channel as `pkgsMaster`.
 - Unfree packages: enabled with `config.allowUnfree = true`.
 - Flake lock: this repo ignores `flake.lock` by default; use `--no-write-lock-file` where appropriate.
