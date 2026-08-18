@@ -47,6 +47,17 @@
         inherit pkgs modules;
         extraSpecialArgs = sharedSpecialArgs;
       };
+
+      mkDeployNode = name: {
+        hostname = "${name}.lennihein.com";
+        sshUser = "lenni";
+        user = "root";
+        sudo = "doas -u";
+        autoRollback = false;
+        profiles.system = {
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
+        };
+      };
     in
     {
       # ==========================================
@@ -185,6 +196,54 @@
           ];
         };
 
+        seth = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = sharedSpecialArgs;
+          modules = [
+            ./modules/common
+            ./hosts/seth/default.nix
+            ./hosts/seth/hardware-configuration.nix
+            ./modules/uncommon/ssh.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
+              home-manager.extraSpecialArgs = sharedSpecialArgs;
+              home-manager.users.lenni = {
+                imports = [
+                  ./home/common/default.nix
+                  ./home/configs/nixos.nix
+                ];
+              };
+            }
+          ];
+        };
+
+        sobek = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = sharedSpecialArgs;
+          modules = [
+            ./modules/common
+            ./hosts/sobek/default.nix
+            ./hosts/sobek/hardware-configuration.nix
+            ./modules/uncommon/ssh.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
+              home-manager.extraSpecialArgs = sharedSpecialArgs;
+              home-manager.users.lenni = {
+                imports = [
+                  ./home/common/default.nix
+                  ./home/configs/nixos.nix
+                ];
+              };
+            }
+          ];
+        };
+
         wsl = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = sharedSpecialArgs;
@@ -278,16 +337,7 @@
       # ==========================================
       # Deploy-RS Deployment Configuration
       # ==========================================
-      deploy.nodes.bes = {
-        hostname = "bes.lennihein.com";
-        sshUser = "lenni";
-        user = "root";
-        sudo = "doas -u";
-        autoRollback = false;
-        profiles.system = {
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.bes;
-        };
-      };
+      deploy.nodes = nixpkgs.lib.genAttrs [ "bes" "seth" "sobek" ] mkDeployNode;
 
       # Deploy-rs checks
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
