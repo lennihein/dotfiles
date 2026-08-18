@@ -15,6 +15,7 @@
 - Apply Home Manager locally: `home-manager switch --flake .#<profile> --refresh --no-write-lock-file`
 - Remote NixOS apply: `sudo nixos-rebuild switch --flake github:lennihein/dotfiles#<hostname> --no-write-lock-file`
 - Remote Home Manager apply: `home-manager switch --flake github:lennihein/dotfiles#<profile> --refresh --no-write-lock-file`
+- Remote deploy-rs apply: `nix run github:serokell/deploy-rs -- .#<hostname> -- --no-write-lock-file`
 
 ## Coding Style & Naming Conventions
 - Nix style: small, focused modules returning attribute sets; one option per line.

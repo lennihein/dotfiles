@@ -6,7 +6,7 @@
   boot.tmp.cleanOnBoot = true;
   zramSwap = {
     enable = true;
-    memoryPercent = 200;
+    memoryPercent = 100;
   };
 
   # Host-specific firewall settings
@@ -51,6 +51,17 @@
   services.caddy = {
     enable = true;
     extraConfig = ''
+      (forward_auth) {
+          forward_auth localhost:9091 {
+              uri /api/authz/forward-auth?authelia_url=https://auth.bes.lennihein.com
+              copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+          }
+      }
+
+      auth.bes.lennihein.com {
+          reverse_proxy localhost:9091
+      }
+
       vpn.bes.lostinthe.cloud {
           reverse_proxy localhost:3001
       }
@@ -68,7 +79,13 @@
       }
 
       data.bes.lennihein.com {
+          import forward_auth
           reverse_proxy localhost:3003
+      }
+
+      terminal.bes.lennihein.com {
+          import forward_auth
+          reverse_proxy localhost:7681
       }
 
       share.bes.lennihein.com {
@@ -80,6 +97,17 @@
           file_server
       }
     '';
+  };
+
+  services.ttyd = {
+    enable = true;
+    interface = "127.0.0.1";
+    port = 7681;
+    writeable = true;
+    entrypoint = [ "${pkgs.shadow}/bin/login" "-f" "lenni" ];
+    clientOptions = {
+      theme = ''{"background": "#282a36", "foreground": "#f8f8f2", "cursor": "#f8f8f2", "selectionBackground": "#44475a", "black": "#21222c", "red": "#ff5555", "green": "#50fa7b", "yellow": "#f1fa8c", "blue": "#bd93f9", "magenta": "#ff79c6", "cyan": "#8be9fd", "white": "#bfbfbf", "brightBlack": "#6272a4", "brightRed": "#ff6e6e", "brightGreen": "#69ff94", "brightYellow": "#ffffa5", "brightBlue": "#d6acff", "brightMagenta": "#ff92df", "brightCyan": "#a4ffff", "brightWhite": "#ffffff"}'';
+    };
   };
 
   systemd.tmpfiles.rules = [

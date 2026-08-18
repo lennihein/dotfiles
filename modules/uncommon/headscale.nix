@@ -21,4 +21,9 @@
       };
     };
   };
+
+  systemd.services.headscale = {
+    after = [ "network-online.target" "adguardhome.service" ];
+    wants = [ "network-online.target" ];
+  };
 }

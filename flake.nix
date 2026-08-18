@@ -14,6 +14,10 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -25,6 +29,7 @@
       pwndbg,
       home-manager,
       nixos-wsl,
+      deploy-rs,
       ...
     }:
     let
@@ -138,6 +143,7 @@
             ./modules/uncommon/adguard.nix
             ./modules/uncommon/filebrowser.nix
             ./modules/uncommon/linx-server.nix
+            ./modules/uncommon/authelia.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -243,5 +249,22 @@
           ];
         };
       };
+
+      # ==========================================
+      # Deploy-RS Deployment Configuration
+      # ==========================================
+      deploy.nodes.bes = {
+        hostname = "bes.lennihein.com";
+        sshUser = "lenni";
+        user = "root";
+        sudo = "doas -u";
+        autoRollback = false;
+        profiles.system = {
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.bes;
+        };
+      };
+
+      # Deploy-rs checks
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }

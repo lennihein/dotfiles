@@ -10,23 +10,36 @@
     };
   };
 
-  # Enforce strict systemd sandboxing
-  systemd.services.filebrowser.serviceConfig = {
-    # Run with shared group membership to access Linx upload directory
-    SupplementaryGroups = [ "shared-data" ];
+  # Enforce strict systemd sandboxing and initialize database with proxy auth settings
+  systemd.services.filebrowser = {
+    preStart = ''
+      DB_PATH="/var/lib/filebrowser/filebrowser.db"
+      if [ ! -f "$DB_PATH" ]; then
+        ${pkgs.filebrowser}/bin/filebrowser config init -d "$DB_PATH"
+      fi
+      ${pkgs.filebrowser}/bin/filebrowser config set \
+        --auth.method=proxy \
+        --auth.header=Remote-User \
+        -d "$DB_PATH"
+    '';
 
-    ProtectSystem = "strict";
-    ProtectHome = true;
-    PrivateTmp = true;
-    PrivateDevices = true;
-    NoNewPrivileges = true;
-    CapabilityBoundingSet = "";
-    RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
-    
-    ReadWritePaths = [
-      "/var/lib/filebrowser"
-      "/data"
-    ];
+    serviceConfig = {
+      # Run with shared group membership to access Linx upload directory
+      SupplementaryGroups = [ "shared-data" ];
+
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      PrivateTmp = true;
+      PrivateDevices = true;
+      NoNewPrivileges = true;
+      CapabilityBoundingSet = "";
+      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+      
+      ReadWritePaths = [
+        "/var/lib/filebrowser"
+        "/data"
+      ];
+    };
   };
 
   # Override filebrowser tmpfiles rule to allow linx-server to traverse /data
