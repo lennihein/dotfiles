@@ -1,11 +1,5 @@
 { config, pkgs, ... }:
 {
-  # Enable Tailscale daemon
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "server";
-  };
-
   # Enable Headscale control server
   services.headscale = {
     enable = true;

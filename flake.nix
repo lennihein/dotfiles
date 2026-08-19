@@ -175,6 +175,7 @@
             ./hosts/bes/hardware-configuration.nix
             ./modules/uncommon/podman.nix
             ./modules/uncommon/ssh.nix
+            ./modules/uncommon/tailscale-router.nix
             ./modules/uncommon/headscale.nix
             ./modules/uncommon/headplane.nix
             ./modules/uncommon/gitea.nix
