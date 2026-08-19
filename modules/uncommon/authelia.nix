@@ -64,12 +64,12 @@
             policy = "two_factor";
           }
           {
-            domain = "terminal.bes.lennihein.com";
-            policy = "one_factor";
-            subject = [ [ "group:admins" ] ];
-          }
-          {
-            domain = "headplane.bes.lennihein.com";
+            domain = [
+              "terminal.bes.lennihein.com"
+              "terminal-seth.bes.lennihein.com"
+              "terminal-sobek.bes.lennihein.com"
+              "headplane.bes.lennihein.com"
+            ];
             policy = "one_factor";
             subject = [ [ "group:admins" ] ];
           }

@@ -183,6 +183,7 @@
             ./modules/uncommon/filebrowser.nix
             ./modules/uncommon/linx-server.nix
             ./modules/uncommon/authelia.nix
+            ./modules/uncommon/ttyd.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -208,6 +209,7 @@
             ./hosts/seth/hardware-configuration.nix
             ./modules/uncommon/ssh.nix
             ./modules/uncommon/tailscale-router.nix
+            ./modules/uncommon/ttyd.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -233,6 +235,7 @@
             ./hosts/sobek/hardware-configuration.nix
             ./modules/uncommon/ssh.nix
             ./modules/uncommon/tailscale-router.nix
+            ./modules/uncommon/ttyd.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

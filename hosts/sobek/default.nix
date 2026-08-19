@@ -12,7 +12,7 @@
   # Host-specific firewall settings
   networking.firewall = {
     trustedInterfaces = [ "tailscale0" ];
-    allowedTCPPorts = [ 80 443 ];
+    allowedTCPPorts = [ 7681 ];
   };
   networking.nftables.enable = true;
 

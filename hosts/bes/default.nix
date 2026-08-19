@@ -88,6 +88,16 @@
           reverse_proxy localhost:7681
       }
 
+      terminal-seth.bes.lennihein.com {
+          import forward_auth
+          reverse_proxy seth.lennihein.com:7681
+      }
+
+      terminal-sobek.bes.lennihein.com {
+          import forward_auth
+          reverse_proxy sobek.lennihein.com:7681
+      }
+
       headplane.bes.lennihein.com {
           import forward_auth
           redir / /admin/ 302
@@ -98,27 +108,24 @@
           reverse_proxy localhost:3004
       }
 
-      www.bes.lennihein.com {
+      www.bes.lennihein.com, bes.lennihein.com {
           root * /data/http
           file_server
       }
     '';
   };
 
-  services.ttyd = {
-    enable = true;
-    interface = "127.0.0.1";
-    port = 7681;
-    writeable = true;
-    entrypoint = [ "${pkgs.shadow}/bin/login" "-f" "lenni" ];
-    clientOptions = {
-      theme = ''{"background": "#282a36", "foreground": "#f8f8f2", "cursor": "#f8f8f2", "selectionBackground": "#44475a", "black": "#21222c", "red": "#ff5555", "green": "#50fa7b", "yellow": "#f1fa8c", "blue": "#bd93f9", "magenta": "#ff79c6", "cyan": "#8be9fd", "white": "#bfbfbf", "brightBlack": "#6272a4", "brightRed": "#ff6e6e", "brightGreen": "#69ff94", "brightYellow": "#ffffa5", "brightBlue": "#d6acff", "brightMagenta": "#ff92df", "brightCyan": "#a4ffff", "brightWhite": "#ffffff"}'';
-    };
-  };
-
   systemd.tmpfiles.rules = [
     "d /data/http 2770 caddy shared-data - -"
   ];
+
+  system.activationScripts.besLandingPage.text = ''
+    mkdir -p /data/http
+    cp -f ${./http/index.html} /data/http/index.html
+    cp -f ${./http/bes.png} /data/http/bes.png
+    chown caddy:shared-data /data/http/index.html /data/http/bes.png
+    chmod 644 /data/http/index.html /data/http/bes.png
+  '';
 
   system.stateVersion = lib.mkForce "23.11";
 }
