@@ -48,8 +48,8 @@
         extraSpecialArgs = sharedSpecialArgs;
       };
 
-      mkDeployNode = name: {
-        hostname = "${name}.lennihein.com";
+      mkDeployNode = name: hostname: {
+        inherit hostname;
         sshUser = "lenni";
         user = "root";
         sudo = "doas -u";
@@ -79,6 +79,7 @@
             ./modules/uncommon/ssh.nix
             ./modules/uncommon/printing.nix
             ./modules/uncommon/termius.nix
+            ./modules/uncommon/tailscale.nix
             ./hosts/dell/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -112,6 +113,7 @@
             ./modules/uncommon/tpm.nix
             ./modules/uncommon/adguard.nix
             ./modules/uncommon/termius.nix
+            ./modules/uncommon/tailscale.nix
             ./hosts/ptah/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -143,6 +145,7 @@
             ./modules/uncommon/tpm.nix
             ./modules/uncommon/ssh.nix
             ./modules/uncommon/printing.nix
+            ./modules/uncommon/tailscale-router.nix
             ./hosts/anubis/default.nix
             ./hosts/anubis/hardware-configuration.nix
             home-manager.nixosModules.home-manager
@@ -204,6 +207,7 @@
             ./hosts/seth/default.nix
             ./hosts/seth/hardware-configuration.nix
             ./modules/uncommon/ssh.nix
+            ./modules/uncommon/tailscale-router.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -228,6 +232,7 @@
             ./hosts/sobek/default.nix
             ./hosts/sobek/hardware-configuration.nix
             ./modules/uncommon/ssh.nix
+            ./modules/uncommon/tailscale-router.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -337,7 +342,12 @@
       # ==========================================
       # Deploy-RS Deployment Configuration
       # ==========================================
-      deploy.nodes = nixpkgs.lib.genAttrs [ "bes" "seth" "sobek" ] mkDeployNode;
+      deploy.nodes = nixpkgs.lib.mapAttrs mkDeployNode {
+        anubis = "anubis";
+        bes = "bes.lennihein.com";
+        seth = "seth.lennihein.com";
+        sobek = "sobek.lennihein.com";
+      };
 
       # Deploy-rs checks
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
