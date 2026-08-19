@@ -15,7 +15,16 @@
       defaultEditor = true;
       enable = true;
     };
-    programs.git.enable = true;
+    programs.git = {
+      enable = true;
+      config = {
+        safe.directory = [
+          "/home/lenni/dotfiles"
+          "/home/lenni/dotfiles/.git"
+          "/etc/nixos"
+        ];
+      };
+    };
     programs.dconf.enable = true;
 
     # Register fish as a shell

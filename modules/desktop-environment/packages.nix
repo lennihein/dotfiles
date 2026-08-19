@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-    environment.systemPackages = with pkgs; [
-      mission-center
-    ];
+  environment.systemPackages = with pkgs; [
+    # Additional desktop packages
+  ];
 }
