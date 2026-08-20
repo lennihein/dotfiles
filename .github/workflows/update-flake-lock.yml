@@ -1,0 +1,33 @@
+name: "Update flake.lock (Weekly)"
+
+on:
+  schedule:
+    # Every Thursday at 01:00 UTC (03:00 CEST / 02:00 CET)
+    - cron: "0 1 * * 4"
+  workflow_dispatch:
+
+jobs:
+  update-flake-lock:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
+
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v21
+        with:
+          pr-title: "chore(deps): update flake.lock [weekly]"
+          pr-body: |
+            Automated weekly update of flake inputs.
+            
+            CI will build all host targets and upload closures to Cachix before merging.
+          branch: "update-flake-lock"
+          pr-labels: |
+            dependencies
+            automated
