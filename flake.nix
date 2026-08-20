@@ -1,7 +1,20 @@
 {
   description = "Lenni's NixOS & Home Manager configuration";
 
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://lennihein.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "lennihein.cachix.org-1:NfNMNT0Z/t/Ykp8BKtuUAsY2PbO8GmfxJZTApFRusWo="
+    ];
+  };
+
   inputs = {
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     home-manager = {
