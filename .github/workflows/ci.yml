@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         host:
-          - dell
+          - khonsu
           - ptah
           - anubis
           - bes
