@@ -76,14 +76,13 @@
       # NixOS Host Configurations
       # ==========================================
       nixosConfigurations = {
-        dell = nixpkgs.lib.nixosSystem {
+        khonsu = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = sharedSpecialArgs;
           modules = [
             ./modules/common
             ./modules/laptop/default.nix
             ./modules/desktop-environment/default.nix
-            ./modules/uncommon/boot.nix
             ./modules/uncommon/podman.nix
             ./modules/uncommon/kvm.nix
             ./modules/uncommon/wireshark.nix
@@ -92,7 +91,8 @@
             ./modules/uncommon/printing.nix
             ./modules/uncommon/termius.nix
             ./modules/uncommon/tailscale.nix
-            ./hosts/dell/hardware-configuration.nix
+            ./hosts/khonsu/default.nix
+            ./hosts/khonsu/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -118,7 +118,6 @@
             ./modules/common
             ./modules/laptop/default.nix
             ./modules/desktop-environment/default.nix
-            ./modules/uncommon/boot.nix
             ./modules/uncommon/podman.nix
             ./modules/uncommon/kvm.nix
             ./modules/uncommon/wireshark.nix
@@ -126,6 +125,7 @@
             ./modules/uncommon/adguard.nix
             ./modules/uncommon/termius.nix
             ./modules/uncommon/tailscale.nix
+            ./hosts/ptah/default.nix
             ./hosts/ptah/hardware-configuration.nix
             home-manager.nixosModules.home-manager
             {

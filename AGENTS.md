@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 - `flake.nix`: Flake entry defining NixOS hosts (`nixosConfigurations`) and standalone Home Manager profiles (`homeConfigurations`).
-- `hosts/`: Host-specific hardware and system configurations (e.g., `dell`, `ptah`, `anubis`, `bes`, `seth`, `sobek`, `wsl`).
+- `hosts/`: Host-specific hardware and system configurations (e.g., `khonsu`, `ptah`, `anubis`, `bes`, `seth`, `sobek`, `wsl`).
 - `modules/`: System-level NixOS modules (desktop environments, hardware tweaks, services).
 - `home/`: User-level Home Manager configurations.
   - `home/common/`: Shared user modules (shell, vim, git, packages, dotfiles).

@@ -4,7 +4,7 @@ Unified NixOS and Home Manager configuration monorepo with automated CI matrix b
 
 ## Structure
 
-- [**`hosts/`**](hosts/): NixOS system host definitions (`dell`, `ptah`, `anubis`, `bes`, `seth`, `sobek`, `wsl`).
+- [**`hosts/`**](hosts/): NixOS system host definitions (`khonsu`, `ptah`, `anubis`, `bes`, `seth`, `sobek`, `wsl`).
 - [**`modules/`**](modules/): NixOS system-level modules (DEs, services, drivers, networking).
 - [**`home/`**](home/): Home Manager configurations and user dotfiles.
   - [**`home/common/`**](home/common/): Shared configuration across all systems (shell, git, vim, fastfetch, starship).
@@ -15,7 +15,7 @@ Unified NixOS and Home Manager configuration monorepo with automated CI matrix b
 
 ### 1. NixOS Systems
 
-To apply on a NixOS host (e.g. `dell`, `ptah`, `anubis`, `bes`, `seth`, `sobek`, `wsl`):
+To apply on a NixOS host (e.g. `khonsu`, `ptah`, `anubis`, `bes`, `seth`, `sobek`, `wsl`):
 
 ```bash
 # Local
