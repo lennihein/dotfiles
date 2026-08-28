@@ -1,10 +1,16 @@
 name: "CI - Build & Cache NixOS Hosts"
 
-on:
+"on":
   push:
     branches: [ "main" ]
   pull_request:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      use-artifact-lock:
+        description: "Whether to use updated flake.lock from workflow artifact"
+        type: boolean
+        default: false
 
 jobs:
   build-hosts:
@@ -26,6 +32,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Download updated flake.lock
+        if: inputs.use-artifact-lock == true
+        uses: actions/download-artifact@v4
+        with:
+          name: flake-lock
+
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
         with:
@@ -44,4 +56,3 @@ jobs:
             --extra-experimental-features "nix-command flakes" \
             --impure \
             --show-trace
-

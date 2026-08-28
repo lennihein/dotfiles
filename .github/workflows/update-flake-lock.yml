@@ -46,49 +46,13 @@ jobs:
           retention-days: 1
 
   build-and-cache:
-    name: Build ${{ matrix.host }}
+    name: Build & Cache Hosts
     needs: check-update
     if: needs.check-update.outputs.has_updates == 'true'
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        host:
-          - khonsu
-          - ptah
-          - anubis
-          - bes
-          - seth
-          - sobek
-          - wsl
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Download updated flake.lock
-        uses: actions/download-artifact@v4
-        with:
-          name: flake-lock
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v16
-        with:
-          extra-conf: |
-            accept-flake-config = true
-
-      - name: Setup Cachix
-        uses: cachix/cachix-action@v15
-        with:
-          name: lennihein
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
-      - name: Build NixOS host toplevel
-        run: |
-          nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel \
-            --extra-experimental-features "nix-command flakes" \
-            --impure \
-            --show-trace
+    uses: ./.github/workflows/ci.yml
+    with:
+      use-artifact-lock: true
+    secrets: inherit
 
   push-update:
     name: Commit and push flake.lock to main
