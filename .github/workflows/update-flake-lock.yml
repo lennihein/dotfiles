@@ -1,41 +1,117 @@
-name: "Update flake.lock (Weekly)"
+name: "Update flake.lock & Cache (Weekly)"
 
-on:
+"on":
   schedule:
-    # Every Thursday at 01:00 UTC (03:00 CEST / 02:00 CET)
-    - cron: "0 1 * * 4"
+    # Every Monday at 02:00 UTC (04:00 CEST / 03:00 CET)
+    - cron: "0 2 * * 1"
   workflow_dispatch:
 
 jobs:
-  update-flake-lock:
+  check-update:
+    name: Check for flake updates
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
+    outputs:
+      has_updates: ${{ steps.check.outputs.has_updates }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
+        with:
+          extra-conf: |
+            accept-flake-config = true
 
       - name: Update flake.lock
-        id: update
-        uses: DeterminateSystems/update-flake-lock@v21
+        run: |
+          nix flake update --extra-experimental-features "nix-command flakes"
+
+      - name: Check if flake.lock changed
+        id: check
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "No updates available."
+            echo "has_updates=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Updates found!"
+            echo "has_updates=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload updated flake.lock
+        if: steps.check.outputs.has_updates == 'true'
+        uses: actions/upload-artifact@v4
         with:
-          pr-title: "chore(deps): update flake.lock [weekly]"
-          pr-body: |
-            Automated weekly update of flake inputs.
-            
-            CI will build all host targets and upload closures to Cachix before merging.
-          branch: "update-flake-lock"
-          pr-labels: |
-            dependencies
-            automated
+          name: flake-lock
+          path: flake.lock
+          retention-days: 1
 
-      - name: Enable Auto-merge
-        if: steps.update.outputs.pull-request-number != ''
-        run: gh pr merge "${{ steps.update.outputs.pull-request-number }}" --auto --merge
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build-and-cache:
+    name: Build ${{ matrix.host }}
+    needs: check-update
+    if: needs.check-update.outputs.has_updates == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        host:
+          - khonsu
+          - ptah
+          - anubis
+          - bes
+          - seth
+          - sobek
+          - wsl
 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download updated flake.lock
+        uses: actions/download-artifact@v4
+        with:
+          name: flake-lock
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
+        with:
+          extra-conf: |
+            accept-flake-config = true
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: lennihein
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Build NixOS host toplevel
+        run: |
+          nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel \
+            --extra-experimental-features "nix-command flakes" \
+            --impure \
+            --show-trace
+
+  push-update:
+    name: Commit and push flake.lock to main
+    needs: [check-update, build-and-cache]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Download updated flake.lock
+        uses: actions/download-artifact@v4
+        with:
+          name: flake-lock
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          git commit -m "chore(deps): update flake.lock [weekly]"
+          git push origin main
