@@ -1,5 +1,8 @@
 # dotfiles
 
+[![CI: Build & Cache](https://github.com/lennihein/dotfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/lennihein/dotfiles/actions/workflows/ci.yml)
+[![Cron: Update flake.lock](https://github.com/lennihein/dotfiles/actions/workflows/update-flake-lock.yml/badge.svg)](https://github.com/lennihein/dotfiles/actions/workflows/update-flake-lock.yml)
+
 Unified NixOS and Home Manager configuration monorepo with automated CI matrix builds and Cachix binary caching.
 
 ## Structure

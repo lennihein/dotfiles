@@ -1,4 +1,4 @@
-name: "Update flake.lock & Cache (Weekly)"
+name: "Cron: Update flake.lock"
 
 "on":
   schedule:

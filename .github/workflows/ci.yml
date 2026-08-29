@@ -1,4 +1,4 @@
-name: "CI - Build & Cache NixOS Hosts"
+name: "CI: Build & Cache"
 
 "on":
   push:
