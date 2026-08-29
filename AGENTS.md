@@ -15,8 +15,8 @@
 - Apply Home Manager locally: `home-manager switch --flake .#<profile>`
 - Remote NixOS apply: `doas nixos-rebuild switch --flake github:lennihein/dotfiles#<hostname>`
 - Remote Home Manager apply: `home-manager switch --flake github:lennihein/dotfiles#<profile>`
-- Remote deploy-rs apply (single node): `nix run github:serokell/deploy-rs -- .#<hostname>`
-- Remote deploy-rs apply (all nodes): `nix run github:serokell/deploy-rs -- .`
+- Remote deploy-rs apply (single node): `nix run nixpkgs#deploy-rs -- .#<hostname>`
+- Remote deploy-rs apply (all nodes): `nix run nixpkgs#deploy-rs -- .`
 - Update flake inputs: `nix flake update`
 
 

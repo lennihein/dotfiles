@@ -14,6 +14,7 @@
       headscale = {
         url = "http://127.0.0.1:3001";
         public_url = "https://vpn.bes.lostinthe.cloud";
+        config_path = "${config.services.headscale.configFile}";
       };
     };
   };

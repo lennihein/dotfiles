@@ -110,13 +110,16 @@
 
       www.bes.lennihein.com, bes.lennihein.com {
           root * /data/http
-          file_server
+          file_server browse
       }
     '';
   };
 
+  systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "shared-data" ];
+
   systemd.tmpfiles.rules = [
-    "d /data/http 2770 caddy shared-data - -"
+    "d /data/http 2775 caddy shared-data - -"
+    "A+ /data/http - - - - d:g:shared-data:rwX,g:shared-data:rwX,d:g:caddy:rwX,g:caddy:rwX,d:o::r-X,o::r-X"
   ];
 
   system.activationScripts.besLandingPage.text = ''
