@@ -20,7 +20,7 @@
     gnome-calculator gnome-calendar gnome-characters gnome-contacts
     gnome-font-viewer gnome-logs gnome-maps gnome-music
     gnome-disk-utility gnome-system-monitor pkgs.gnome-connections
-    pkgs.gnome-tour pkgs.gnome-photos pkgs.gnome-console
+    pkgs.gnome-tour pkgs.gnome-console
   ];
 
   # GNOME extensions
