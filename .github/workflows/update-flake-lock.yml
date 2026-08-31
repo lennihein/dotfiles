@@ -79,3 +79,26 @@ jobs:
           git add flake.lock
           git commit -m "chore(deps): update flake.lock [weekly]"
           git push origin main
+
+  request-jules-fix:
+    name: Request Jules fix on failure
+    needs: [check-update, build-and-cache]
+    if: failure() && needs.check-update.outputs.has_updates == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Dispatch fix task to Jules
+        uses: google-labs-code/jules-invoke@v1.0.0
+        with:
+          jules_api_key: ${{ secrets.JULES_API_KEY }}
+          prompt: |
+            The weekly `nix flake update` failed in CI due to breaking upstream changes in nixpkgs or home-manager.
+
+            Please:
+            1. Run `nix flake update`.
+            2. Run `nix flake check` and test building the host matrix to identify breaking/removed packages.
+            3. Fix the broken module and package references.
+            4. Open a Pull Request with the updated lockfile and fixes against `main`.
+
+
