@@ -2,8 +2,8 @@ name: "Cron: Update flake.lock"
 
 "on":
   schedule:
-    # Every Monday at 02:00 UTC (04:00 CEST / 03:00 CET)
-    - cron: "0 2 * * 1"
+    # Every Thursday at 02:00 UTC (04:00 CEST / 03:00 CET)
+    - cron: "0 2 * * 4"
   workflow_dispatch:
 
 jobs:
@@ -89,9 +89,11 @@ jobs:
       contents: read
     steps:
       - name: Dispatch fix task to Jules
-        uses: google-labs-code/jules-invoke@v1.0.0
+        uses: google-labs-code/jules-action@v1.0.0
         with:
           jules_api_key: ${{ secrets.JULES_API_KEY }}
+          include_last_commit: ""
+          include_commit_log: ""
           prompt: |
             The weekly `nix flake update` failed in CI due to breaking upstream changes in nixpkgs or home-manager.
 
