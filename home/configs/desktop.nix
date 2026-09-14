@@ -16,5 +16,6 @@ in
     kitty
     obsidian
     antigravity-ide-sandboxed
+    webex
   ];
 }
