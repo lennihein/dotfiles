@@ -17,5 +17,6 @@ in
     obsidian
     antigravity-ide-sandboxed
     webex
+    unsloth-desktop
   ];
 }
