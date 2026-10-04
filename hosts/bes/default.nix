@@ -116,14 +116,6 @@
       heincam.lennihein.com {
           root * /data/http/heincam
           file_server
-
-          # Prevent service worker & HTML cache-lock
-          @no_cache {
-              path / /index.html /sw.js /manifest.json
-          }
-          header @no_cache Cache-Control "no-cache, no-store, must-revalidate"
-
-          # Explicitly permit camera access in case of upstream proxy defaults
           header Permissions-Policy "camera=(self)"
       }
 
