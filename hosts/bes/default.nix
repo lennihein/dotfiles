@@ -112,14 +112,31 @@
           root * /data/http
           file_server browse
       }
+
+      heincam.lennihein.com {
+          root * /data/http/heincam
+          file_server
+
+          # Prevent service worker & HTML cache-lock
+          @no_cache {
+              path / /index.html /sw.js /manifest.json
+          }
+          header @no_cache Cache-Control "no-cache, no-store, must-revalidate"
+
+          # Explicitly permit camera access in case of upstream proxy defaults
+          header Permissions-Policy "camera=(self)"
+      }
+
     '';
   };
 
   systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "shared-data" ];
 
-  systemd.tmpfiles.rules = [
+systemd.tmpfiles.rules = [
     "d /data/http 2775 caddy shared-data - -"
+    "d /data/http/heincam 2775 caddy shared-data - -"
     "A+ /data/http - - - - d:g:shared-data:rwX,g:shared-data:rwX,d:g:caddy:rwX,g:caddy:rwX,d:o::r-X,o::r-X"
+    "A+ /data/http/heincam - - - - d:g:shared-data:rwX,g:shared-data:rwX,d:g:caddy:rwX,g:caddy:rwX,d:o::r-X,o::r-X"
   ];
 
   system.activationScripts.besLandingPage.text = ''
