@@ -4,7 +4,7 @@
   services.gitea = {
     enable = true;
     settings.server = {
-      DOMAIN = "git.lennihein.com";
+      ROOT_URL = "https://git.lennihein.com/";
       HTTP_PORT = 3002;
     };
     settings.service = {
