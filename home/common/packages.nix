@@ -1,10 +1,10 @@
-{ pkgs, pkgsMaster, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     # TUI
     helix gitui ranger gdu bottom fastfetch
     # CLI
-    bat eza rm-improved duf xcp less pkgsMaster.antigravity-cli gh todoist comma
+    bat eza rm-improved duf xcp less
     # utility
     zip unzip
     # network
