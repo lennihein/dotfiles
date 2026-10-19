@@ -5,10 +5,14 @@
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://lennihein.cachix.org"
+      # Declared in omnibin's own flake, but nixConfig from a non-root flake is
+      # ignored, so it has to be repeated here or omnibin builds from source.
+      "https://omnibin.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "lennihein.cachix.org-1:NfNMNT0Z/t/Ykp8BKtuUAsY2PbO8GmfxJZTApFRusWo="
+      "omnibin.cachix.org-1:HWeLv8+LfqLqLDOoQJmvmW7m0ug1Fne/DYaxgdECHgw="
     ];
   };
 
