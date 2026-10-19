@@ -128,13 +128,48 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1790185690,
+        "narHash": "sha256-xJ+X4hBtOcAFGBOe5nAMyMUeF9foJBmIOu3NjBqBycU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4975466d324710c576dc11ad614684e6bd8cad8e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "omnibin": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1791736038,
+        "narHash": "sha256-m4xGgTZDOgpVHbTMEYhjuwvV52cJy+cAqc7+tD3v80g=",
+        "owner": "fzakaria",
+        "repo": "omnibin",
+        "rev": "9e4de1c04f2f367c78ac7d2b56bb6b039fcc9bee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fzakaria",
+        "repo": "omnibin",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
         "home-manager": "home-manager",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-master": "nixpkgs-master"
+        "nixpkgs-master": "nixpkgs-master",
+        "omnibin": "omnibin"
       }
     },
     "systems": {

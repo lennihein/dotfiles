@@ -16,6 +16,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    omnibin.url = "github:fzakaria/omnibin";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +36,7 @@
       self,
       nixpkgs,
       nixpkgs-master,
+      omnibin,
       home-manager,
       nixos-wsl,
       deploy-rs,
@@ -53,6 +55,16 @@
 
       sharedSpecialArgs = {
         inherit pkgsMaster;
+        # Built from the rev in flake.lock, so `nix flake update omnibin` bumps
+        # the tool and its index with no edits. Passed as store paths rather
+        # than a `nix run` flake ref: 0.3s per call instead of 2.8s, because
+        # there is no flake evaluation. The 386 MiB closure (261 MiB of which is
+        # the shared index database) then arrives at switch time rather than on
+        # first use -- same bytes either way.
+        omnibinCli = omnibin.packages.${system}.default;
+        # Upstream as-is; home/configs/omnibin.nix derives a quieter variant
+        # from it and keeps this one for the interactive session.
+        omnibinShell = omnibin.packages.${system}.omnibin-shell;
       };
 
       mkHome = modules: home-manager.lib.homeManagerConfiguration {
@@ -103,6 +115,7 @@
                 imports = [
                   ./home/common/default.nix
                   ./home/configs/dev.nix
+                  ./home/configs/omnibin.nix
                   ./home/configs/desktop.nix
                   ./home/configs/nixos.nix
                 ];
@@ -137,6 +150,7 @@
                 imports = [
                   ./home/common/default.nix
                   ./home/configs/dev.nix
+                  ./home/configs/omnibin.nix
                   ./home/configs/desktop.nix
                   ./home/configs/nixos.nix
                 ];
@@ -170,6 +184,7 @@
                 imports = [
                   ./home/common/default.nix
                   ./home/configs/dev.nix
+                  ./home/configs/omnibin.nix
                   ./home/configs/desktop.nix
                   ./home/configs/nixos.nix
                 ];
