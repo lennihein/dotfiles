@@ -28,7 +28,7 @@
     pkgs.gnome-tweaks
     gnomeExtensions.appindicator
     gnomeExtensions.no-a11y
-    gnomeExtensions.clipboard-indicator
+    gnomeExtensions.clipboard-history
     gnomeExtensions.dash-to-panel
   ];
 }
