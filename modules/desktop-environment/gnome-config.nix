@@ -28,7 +28,7 @@
     pkgs.gnome-tweaks
     gnomeExtensions.appindicator
     gnomeExtensions.no-a11y
-    gnomeExtensions.trimmer
+    gnomeExtensions.trimmy
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.dash-to-panel
   ];
