@@ -20,7 +20,7 @@
       default_2fa_method = ""; # Allow logging in with 1FA directly without forcing TOTP setup
 
       server = {
-        address = "tcp://127.0.0.1:9091";
+        address = "tcp://0.0.0.0:9091";
       };
 
       log = {
@@ -50,7 +50,7 @@
         remember_me = "30d";
         cookies = [
           {
-            domain = "bes.lennihein.com";
+            domain = "lennihein.com";
             authelia_url = "https://auth.bes.lennihein.com";
           }
         ];
@@ -59,6 +59,16 @@
       access_control = {
         default_policy = "one_factor"; # 1FA password access only for simple testing
         rules = [
+          {
+            domain = [
+              "punch.sobek.lennihein.com"
+              "punch.bes.lennihein.com"
+            ];
+            resources = [
+              "^/api/(watch|agent|health)(/.*)?$"
+            ];
+            policy = "bypass";
+          }
           {
             domain = "secure.bes.lennihein.com";
             policy = "two_factor";

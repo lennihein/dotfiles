@@ -33,6 +33,10 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    punch = {
+      url = "github:lennihein/punch";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -44,6 +48,7 @@
       home-manager,
       nixos-wsl,
       deploy-rs,
+      punch,
       ...
     }:
     let
@@ -268,6 +273,8 @@
             ./modules/uncommon/ssh.nix
             ./modules/uncommon/tailscale-router.nix
             ./modules/uncommon/ttyd.nix
+            punch.nixosModules.default
+            ./modules/uncommon/punch.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

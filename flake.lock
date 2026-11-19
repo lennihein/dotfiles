@@ -162,6 +162,26 @@
         "type": "github"
       }
     },
+    "punch": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795104864,
+        "narHash": "sha256-HR3XZzRXhYAHLjnfHVl0sK22byCWIQNZ2uHK1Vc3aQ4=",
+        "owner": "lennihein",
+        "repo": "punch",
+        "rev": "b7cbef2f286cb0074484ee1de97748510bd14102",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lennihein",
+        "repo": "punch",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
@@ -169,7 +189,8 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
-        "omnibin": "omnibin"
+        "omnibin": "omnibin",
+        "punch": "punch"
       }
     },
     "systems": {

@@ -108,6 +108,19 @@
           reverse_proxy localhost:3004
       }
 
+      punch.bes.lennihein.com {
+          @api_bypass {
+              path /api/watch/* /api/agent/* /api/health
+          }
+          handle @api_bypass {
+              reverse_proxy 100.64.0.7:8000
+          }
+          handle {
+              import forward_auth
+              reverse_proxy 100.64.0.7:8000
+          }
+      }
+
       www.bes.lennihein.com, bes.lennihein.com {
           root * /data/http
           file_server browse
